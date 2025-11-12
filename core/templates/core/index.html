@@ -42,9 +42,8 @@
                   background-repeat: no-repeat;">
             
                 <h3>{{ card.title }}</h3>
-                <a href="{% url 'square_card_detail' card.slug %}" class="card-btn">Подробнее</a>           
+                <a href="{{ card.get_absolute_url }}" class="card-btn">Подробнее</a>           
             </div>
-
             {% endfor %}
         </div>
     </div>

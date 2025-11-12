@@ -1,9 +1,24 @@
-{% comment %} {% extends "base.html" %}
+{% extends "core/base.html" %}
 {% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'square_card_detail.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
- 
-                {% if card.image %}
-                    <img src="{{ card.image.url }}" alt="{{ card.title }}" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 15px;">
-                {% endif %}
-                <h3>{{ card.title }}</h3>
-{% endblock %} {% endcomment %}
+<div class="card-detail-container">
+    <div class="card-detail-card">
+        {% if card.image %}
+        <div class="card-detail-image" style="background-image: url('{{ card.image.url }}');"></div>
+        {% endif %}
+        
+        <div class="card-detail-content">
+            <h2>{{ card.title }}</h2>
+            {% if card.description %}
+            <p>{{ card.description|linebreaks }}</p>
+            {% endif %}
+            <a href="{% url 'home' %}" class="btn btn-primary">Назад</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
