@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import HeroCard, SmallCard, SquareCard
+from .models import HeroCard, SmallCard, SquareCard, Doctor
 
 
 class HomeView(TemplateView):
@@ -19,6 +19,17 @@ class SquareCardDetailView(DetailView):
     model = SquareCard
     template_name = "core/square_card_detail.html"
     context_object_name = "card"
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
 
     def get_object(self):
         return get_object_or_404(SquareCard, slug=self.kwargs['slug'])
+    
+
+class DoctorsListView(ListView):
+    model = Doctor
+    template_name="navbar/doctors_list.html"
+    context_object_name='doctors'
+
+    def get_queryset(self):
+        return Doctor.objects.all()

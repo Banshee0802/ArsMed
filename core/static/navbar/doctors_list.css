@@ -1,0 +1,101 @@
+.doctors-section {
+    margin-top: 60px;
+    margin-left: 50px;
+    width: calc(100% - 50px);
+    padding: 0 20px;
+}
+
+.doctors-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.doctor-card {
+    background-color: #c3b8bb;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    height: 500px;
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.doctor-photo {
+    width: 250px;
+    height: 300px;
+    border-radius: 10%;
+    margin-bottom: 15px;
+}
+
+.doctor-photo.placeholder {
+    background-color: #efebec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #102a49;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.doctor-info h3 {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1.3rem;
+    color: #102a49;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.doctor-info .specialization,
+.doctor-info .experience {
+    font-family: 'Evolventa', Arial, sans-serif;
+    color: #333;
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+
+.doctor-info .card-btn {
+    text-decoration: none;
+    background-color: #102a49;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.doctor-info .card-btn:hover {
+    background-color: #0d1f36;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .doctors-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .doctors-container {
+        grid-template-columns: 1fr;
+    }
+
+    .doctors-section {
+        margin-left: 20px;
+        width: calc(100% - 20px);
+    }
+}

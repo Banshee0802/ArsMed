@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'navbar/doctors_list.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="doctors-section">
+    <h2 class="section-title">Наши специалисты</h2>
+    <div class="doctors-container">
+        {% for doctor in doctors %}
+        <div class="doctor-card">
+            {% if doctor.photo %}
+            <img src="{{ doctor.photo.url }}" alt="{{ doctor }}" class="doctor-photo">
+            {% else %}
+            <div class="doctor-photo placeholder">Фото</div>
+            {% endif %}
+            <div class="doctor-info">
+                <h3>{{ doctor.last_name }} {{ doctor.first_name }}{% if doctor.patronymic %} {{ doctor.patronymic }}{% endif %}</h3>
+                <p class="specialization">{{ doctor.specialization }}</p>
+                <p class="experience">Опыт работы: {{ doctor.experience }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
