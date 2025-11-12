@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'core/css/mobile.css' %}"> {% endcomment %}
+    <link href="https://fonts.cdnfonts.com/css/evolventa" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Шапка над навбаром -->
+  <div class="header-container">
+        <div class="header-image">
+            <img src="{% static 'core/images/logo/logo1.jpg' %}" alt="Логотип"> 
+        </div>
+         <div class="top-info">
+            <div class="phone-number">
+                <i class="fas fa-phone"></i>
+                <span>+7 (999) 123-45-67</span>
+            </div>
+        </div>
+        <div class="top-info-address">
+            <div class="info-address">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>г. Москва, ул. Примерная, д. 123</span>
+            </div>
+        </div>
+            <button class="cabinet-btn">
+              <i class="fas fa-user"></i>
+                Личный кабинет
+            </button>
+        </div>
+
+
+            <!-- Навбар -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Наши врачи</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Услуги и цены</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Акции</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Контакты</a>
+                </li>
+            </ul>
+            <div class="nav-buttons">
+                    <button class="btn btn-primary">Записаться на прием</button>
+                    <button class="btn btn-secondary">Написать нам</button>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock content %}
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Левая колонка - контакты -->
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>г. Москва, ул. Примерная, д. 123</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+7 (999) 123-45-67</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@clinic.ru</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Пн-Пт: 8:00-20:00<br>Сб-Вс: 9:00-18:00</span>
+                </div>
+            </div> 
+            <!-- Правая колонка - соцсети и дополнительная информация -->
+            <div class="footer-column">
+                <h3>Мы в соцсетях</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                
+                <div class="footer-info">
+                    <p>Лицензия № ЛО-77-01-019876</p>
+                    <p>ОГРН 1234567890123</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Нижняя часть футера -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-container">
+                <p>&copy; 2024 Медицинский центр. Все права защищены.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Политика конфиденциальности</a>
+                    <a href="#">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{% comment %} {% extends "base.html" %}
+{% load static %}
+{% block content %}
+ 
+                {% if card.image %}
+                    <img src="{{ card.image.url }}" alt="{{ card.title }}" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 15px;">
+                {% endif %}
+                <h3>{{ card.title }}</h3>
+{% endblock %} {% endcomment %}

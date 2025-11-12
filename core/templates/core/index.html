@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}   
+{% load static %}     
+ 
+{% block content %}
+        <!-- Карточки -->
+    <div class="cards-container">
+        <!-- Левая большая карточка -->
+        {% if hero_card %}
+        <div class="left-card big-card" style="background-image: url('{{ hero_card.image.url }}');">
+            <h3>{{ hero_card.title }}</h3>
+            {% if card.image %}
+            <img src="{{ object.image.url }}" alt="{{ object.title }}">
+            {% endif %}
+            <p>{{ hero_card.subtitle }}</p>
+            <a href="{{ hero_card.button_url }}" class="card-btn">{{ hero_card.button_text }}</a>
+        </div>
+        {% endif %}
+        
+        <!-- Правый блок с двумя маленькими карточками -->
+        <div class="right-cards">
+          <h3>Новые методы лечения и диагностики в нашем центре</h3>
+          {% for card in small_cards %}
+            <div class="small-card card-1">
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+    <!-- Блок с карточками -->
+    <div class="square-cards-section">
+        <h2 class="section-title">Наши направления и возможности</h2>
+          <p class="section-description">Выберите направление для более подробного ознакомления с нашими услугами</p>
+        <div class="square-cards-container">
+            {% for card in square_cards %}
+            <div class="square-card"
+           style="background-image: url('{{ card.image.url }}'); 
+                  background-size: cover; 
+                  background-position: center; 
+                  background-repeat: no-repeat;">
+            
+                <h3>{{ card.title }}</h3>
+                <a href="{% url 'square_card_detail' card.slug %}" class="card-btn">Подробнее</a>           
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
