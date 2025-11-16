@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'navbar/promotion_list.css' %}">
+{% endblock extra_css %}
+
+{% block title %}Акции{% endblock title %}
+
+
+{% block content %}
+<section class="services-section">
+    <h2 class="section-title">Акции</h2>
+
+    {% if promotion %}
+        <div class="promotion-list">
+            {% for promo in promotion %}
+                <div class="promotion-item">
+                    {% if promo.image %}
+                        <img src="{{ promo.image.url }}" alt="{{ promo.title }}">
+                    {% else %}
+                        <div class="no-image">Нет изображения</div>
+                    {% endif %}
+                    {% if promo.end_date %}
+                        <p>Акция действует до {{ promo.end_date|date:"d.m.Y" }}  включительно*</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+      
+    {% else %}
+        <p style="text-align: center;">Акций пока нет.</p>
+    {% endif %}
+</section>
+{% endblock content %}

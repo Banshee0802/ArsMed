@@ -1,0 +1,67 @@
+.services-section {
+    margin: 50px;
+    font-family: 'Evolventa', Arial, sans-serif;
+    color: #102a49;
+}
+
+.section-title {
+    margin-top: 50px;
+    color: #102a49;
+    font-size: 2.2rem;
+    text-align: center;
+}
+
+/* Сетка для баннеров */
+.promotion-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.promotion-item {
+    text-align: center;
+}
+
+.promotion-item img {
+    width: 710px;
+    height: 270px;
+    border-radius: 12px;
+}
+
+.promotion-item .no-image {
+    width: 300px;
+    height: 200px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: #555;
+}
+
+.promotion-item p {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+/* Сноска под баннерами */
+.promotion-note {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #102a49;
+}
+
+/* Адаптив для маленьких экранов */
+@media (max-width: 768px) {
+    .services-section {
+        margin: 20px;
+    }
+
+    .promotion-item img,
+    .promotion-item .no-image {
+        width: 90%;
+        height: auto;
+    }
+}

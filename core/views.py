@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import HeroCard, SmallCard, SquareCard, Doctor, Services
+from .models import HeroCard, SmallCard, SquareCard, Doctor, Services, Promotion
 
 
 class HomeView(TemplateView):
@@ -42,3 +42,12 @@ class ServicesListView(ListView):
 
     def get_queryset(self):
         return Services.objects.all()
+    
+
+class PromotionView(ListView):
+    model = Promotion
+    template_name = "navbar/promotion_list.html"
+    context_object_name = "promotion"
+
+    def get_queryset(self):
+        return Promotion.objects.all()

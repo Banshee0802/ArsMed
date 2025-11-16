@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 from datetime import date
 
+
 class HeroCard(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
     subtitle = models.TextField(blank=True, verbose_name="Описание")
@@ -20,6 +21,9 @@ class HeroCard(models.Model):
     def __str__(self):
         return self.title
     
+    class Meta:
+        verbose_name = "Главная карточка"
+    
 
 class SmallCard(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
@@ -34,6 +38,9 @@ class SmallCard(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name_plural = "Маленькие карточки"
     
 
 class SquareCard(models.Model):
@@ -53,6 +60,9 @@ class SquareCard(models.Model):
     
     def get_absolute_url(self):
         return reverse('square_card_detail', kwargs={'slug': self.slug})
+    
+    class Meta:
+        verbose_name_plural = "Квадратные карточки"
 
 
 class Doctor(models.Model):
@@ -92,6 +102,10 @@ class Doctor(models.Model):
             self.slug = slug
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = "Доктор"
+        verbose_name_plural = "Доктора"
+
 
 class Services(models.Model):
     title = models.CharField(max_length=250, verbose_name="Название услуги")
@@ -99,3 +113,35 @@ class Services(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name = "Услуга"
+        verbose_name_plural = "Услуги"
+    
+
+class Promotion(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Название акции")
+    image = models.ImageField(upload_to="promotions/", blank=True, null=True, verbose_name="Баннер акции")
+    start_date = models.DateField(blank=True, null=True, verbose_name="Дата начала")
+    end_date = models.DateField(blank=True, null=True, verbose_name="Дата окончания")
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def is_active(self):
+        from django.utils import timezone
+        today = timezone.now().date()
+        if self.start_date and self.end_date:
+            return self.start_date <= today <= self.end_date
+        return False
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Акция"
+        verbose_name_plural = "Акции"

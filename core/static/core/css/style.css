@@ -405,7 +405,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(16, 42, 73, 0.7);
+    background: #102a49b3;
     z-index: -1;
     border-radius: 20px;
 }
@@ -439,22 +439,22 @@ body {
 
 /* Оверлеи для каждой карточки */
 .square-card:nth-child(1)::before {
-    background: linear-gradient(135deg, rgba(16, 42, 73, 0.8) 0%, rgba(32, 82, 147, 0.8) 100%), center/cover;
+    background: linear-gradient(135deg, #102a49cc 0%, #205293cc 100%), center/cover;
 }
 .square-card:nth-child(2)::before {
-    background: linear-gradient(135deg, rgba(74, 107, 157, 0.8) 0%, rgba(108, 145, 194, 0.8) 100%), center/cover;
+    background: linear-gradient(135deg, #4a6b9dcc 0%, #6c91c2cc 100%), center/cover;
 }
 .square-card:nth-child(3)::before {
-    background: linear-gradient(135deg, rgba(57, 130, 123, 0.8) 0%, rgba(92, 180, 169, 0.8) 100%), center/cover;
+    background: linear-gradient(135deg, #39827bcc 0%, #5cb4a9cc 100%), center/cover;
 }
 .square-card:nth-child(4)::before {
-    background: linear-gradient(135deg, rgba(142, 68, 173, 0.8) 0%, rgba(185, 114, 209, 0.8) 100%), center/cover;
+    background: linear-gradient(135deg, #8e44adcc 0%, #b972d1cc 100%), center/cover;
 }
 .square-card:nth-child(5)::before {
-    background: linear-gradient(135deg, rgba(219, 84, 97, 0.8) 0%, rgba(239, 130, 117, 0.8) 100%), center/cover;
+    background: linear-gradient(135deg, #db5461cc 0%, #ef8275cc 100%), center/cover;
 }
 .square-card:nth-child(6)::before {
-    background: linear-gradient(135deg, rgba(231, 76, 60, 0.8) 0%, rgba(241, 144, 102, 0.8) 100%), center/cover;
+    background: linear-gradient(135deg, #e74c3ccc 0%, #f19066cc 100%), center/cover;
 }
 
 
