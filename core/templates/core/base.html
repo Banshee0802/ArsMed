@@ -48,7 +48,7 @@
                     <a href="{% url 'doctors_list' %}" class="nav-link">Наши врачи</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Услуги и цены</a>
+                    <a href="{% url 'services_list' %}" class="nav-link">Услуги и цены</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">Акции</a>
@@ -63,9 +63,9 @@
             </div>
         </div>
     </nav>
-
+    <div class="main-content">
     {% block content %}{% endblock content %}
-
+    </div>
     <!-- Футер -->
     <footer class="footer">
         <div class="footer-container">

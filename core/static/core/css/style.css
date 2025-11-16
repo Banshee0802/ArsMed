@@ -381,7 +381,7 @@ body {
   border: 1px solid #fff; 
 }
 
-/* эффект при наведении */
+/* Эффекты при наведении */
 .square-card a:hover {
   background-color: #ffffff81;
   color: #ffffff;
@@ -389,8 +389,6 @@ body {
   transform: translateY(-2px); 
 }
 
-
-/* Эффекты при наведении */
 .square-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
@@ -424,13 +422,13 @@ body {
 /* Адаптивность для мобильных устройств */
 @media (max-width: 1024px) {
     .square-cards-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки на планшетах */
+        grid-template-columns: repeat(2, 1fr); 
     }
 }
 
 @media (max-width: 768px) {
     .square-cards-container {
-        grid-template-columns: 1fr; /* 1 колонка на мобильных */
+        grid-template-columns: 1fr; 
     }
     
     .square-cards-section {
@@ -439,7 +437,7 @@ body {
     }
 }
 
-/* Фоновые изображения с оверлеями для каждой карточки */
+/* Оверлеи для каждой карточки */
 .square-card:nth-child(1)::before {
     background: linear-gradient(135deg, rgba(16, 42, 73, 0.8) 0%, rgba(32, 82, 147, 0.8) 100%), center/cover;
 }
@@ -460,7 +458,6 @@ body {
 }
 
 
-/* Белый текст для всех карточек с фоном */
 .square-card h3 {
     font-family: 'Evolventa', Arial, sans-serif;
     font-size: 1.4rem;
@@ -586,8 +583,6 @@ body {
 }
 
 .footer-bottom-container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 0 40px;
     display: flex;
     justify-content: space-between;
@@ -615,6 +610,10 @@ body {
 
 .footer-bottom-links a:hover {
     color: #4facfe;
+}
+
+.main-content {
+    margin-bottom: 100px; 
 }
 
 @media (max-width: 768px) {

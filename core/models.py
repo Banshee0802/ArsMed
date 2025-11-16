@@ -91,3 +91,11 @@ class Doctor(models.Model):
                 num += 1
             self.slug = slug
         super().save(*args, **kwargs)
+
+
+class Services(models.Model):
+    title = models.CharField(max_length=250, verbose_name="Название услуги")
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Стоимость")
+
+    def __str__(self):
+        return self.title
