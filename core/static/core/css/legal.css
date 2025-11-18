@@ -1,0 +1,92 @@
+
+.legal-container {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 40px 50px;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+    font-family: 'Evolventa', Arial, sans-serif;
+    line-height: 1.7;
+    color: #102a49;
+}
+
+/* Заголовки */
+.legal-container h1 {
+    font-size: 2.4rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.legal-container h2 {
+    font-size: 1.7rem;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.legal-container h3 {
+    font-size: 1.3rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Абзацы */
+.legal-container p {
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+}
+
+/* Списки */
+.legal-container ul,
+.legal-container ol {
+    padding-left: 25px;
+    margin-bottom: 20px;
+}
+
+.legal-container li {
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
+.legal-container hr {
+    margin: 40px 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+/* Ссылки */
+.legal-container a {
+    color: #205293;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.legal-container a:hover {
+    text-decoration: underline;
+}
+
+/* Блок предупреждений */
+.legal-note {
+    background: #c3b8bb;
+    padding: 20px 25px;
+    border-radius: 20px;
+    margin: 25px 0;
+    color: #102a49;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .legal-container {
+        margin: 40px 20px;
+        padding: 25px 20px;
+        border-radius: 25px;
+    }
+
+    .legal-container h1 {
+        font-size: 1.9rem;
+    }
+}

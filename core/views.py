@@ -57,3 +57,11 @@ class ContactsView(ListView):
     model = Contacts
     template_name = "navbar/contacts.html"
     context_object_name = "contacts"
+
+
+class TermsOfUseView(TemplateView):
+    template_name = "core/legal/terms_of_use.html"
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = "core/legal/privacy_policy.html"
