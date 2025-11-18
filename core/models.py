@@ -145,3 +145,19 @@ class Promotion(models.Model):
     class Meta:
         verbose_name = "Акция"
         verbose_name_plural = "Акции"
+
+
+class Contacts(models.Model):
+    name = models.CharField(max_length=200, verbose_name="Название организации")
+    address = models.CharField(max_length=300, verbose_name="Адрес")
+    phone = models.CharField(max_length=50, verbose_name="Номер телефона")
+    email = models.EmailField(verbose_name="Email")
+    latitude = models.FloatField(blank=True, null=True, verbose_name="Широта")
+    longitude = models.FloatField(blank=True, null=True, verbose_name="Долгота")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Контакт"
+        verbose_name_plural = "Контакты"

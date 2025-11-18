@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Контакты{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'navbar/contacts.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="contacts-section">
+    <h2 class="section-title">Контакты</h2>
+
+    {% for contact in contacts %}
+        <div class="contact-info">
+            <p><strong>{{ contact.name }}</strong></p>
+            <p>{{ contact.address }}</p>
+            <p>Телефон: {{ contact.phone }}</p>
+            <p>Email: {{ contact.email }}</p>
+        </div>
+
+        {% if contact.latitude and contact.longitude %}
+            <div id="map-{{ forloop.counter }}"
+                 class="map"
+                 data-lat="{{ contact.latitude }}"
+                 data-lon="{{ contact.longitude }}"
+                 data-title="{{ contact.name }}">
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% if not contacts %}
+        <p>Контакты пока не добавлены.</p>
+    {% endif %}
+</section>
+
+
+<script src="{% static 'navbar/js/contacts_map.js' %}"></script>
+{% endblock content %}
+

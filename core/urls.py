@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     HomeView, SquareCardDetailView, DoctorsListView,
-    ServicesListView, PromotionView
+    ServicesListView, PromotionView, ContactsView
 )
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('doctors/', DoctorsListView.as_view(), name='doctors_list'),
     path('services/', ServicesListView.as_view(), name='services_list'),
     path('promotion/', PromotionView.as_view(), name='promotion_list'),
+    path('contacts/', ContactsView.as_view(), name='contacts'),
 ]
