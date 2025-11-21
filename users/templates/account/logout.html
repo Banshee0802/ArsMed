@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="registration-container">
+    <h2>Подтверждение выхода</h2>
+    <p>Вы уверены, что хотите выйти из аккаунта?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="cabinet-btn">Выйти</button>
+        <a href="/" class="cabinet-btn" style="background-color:#efebec; color:#102a49;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

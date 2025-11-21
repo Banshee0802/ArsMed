@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -22,10 +23,15 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
     
-    def save(self, *args, **kwargs):
-        # Проверяем: если это обычный пользователь, поля обязательны
-        if self.role != 'admin':
-            if not self.birth_date or not self.phone:
-                raise ValueError("Для обычного пользователя обязательны поля birth_date и phone")
-        super().save(*args, **kwargs)
+    def clean(self):
+        cleaned_data = super().clean()
+        birth_date = cleaned_data.get("birth_date")
+        phone = cleaned_data.get("phone")
+
+        if not birth_date:
+            self.add_error('birth_date', 'Дата рождения обязательна')
+        if not phone:
+            self.add_error('phone', 'Телефон обязателен')
+
+        return cleaned_data
 
