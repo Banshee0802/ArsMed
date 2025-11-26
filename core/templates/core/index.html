@@ -12,7 +12,7 @@
             <img src="{{ object.image.url }}" alt="{{ object.title }}">
             {% endif %}
             <p>{{ hero_card.subtitle }}</p>
-            <a href="{{ hero_card.button_url }}" class="card-btn">{{ hero_card.button_text }}</a>
+            <a href="{% url 'account_login' %}" class="card-btn">{{ hero_card.button_text }}</a>
         </div>
         {% endif %}
         

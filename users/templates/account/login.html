@@ -25,17 +25,14 @@
             {{ form.password.errors }}
         </div>
 
-        <button type="submit" class="cabinet-btn">Войти</button>
+        <button type="submit" class="login-btn">Войти</button>
 
-        <div class="extra-links">
             <p class="extra-text"> Нет аккаунта?
                 <a href="{% url 'account_signup' %}" class="extra-btn">Зарегистрироваться</a>
             </p>
             <p class="extra-text"> Забыли пароль?
                 <a href="{% url 'account_reset_password' %}" class="extra-btn">Восстановление</a>
             </p>
-        </div>
-
     </form>
 </div>
 {% endblock %}

@@ -44,7 +44,7 @@
     box-shadow: 0 0 5px rgba(16,42,73,0.5);
 }
 
-.cabinet-btn {
+.login-btn {
     width: 100%;
     margin-top: 20px;
     padding: 12px;
@@ -58,7 +58,7 @@
     text-align: center;
 }
 
-.cabinet-btn:hover {
+.login-btn:hover {
     background-color: #0b1b33;
     transform: translateY(-2px);
 }
@@ -72,17 +72,7 @@
 }
 
 .extra-btn {
-    text-decoration: none;    
-    margin-top: 20px;
-    padding: 5px 50px;
-    border: none;
-    width: 250px;  
-    font-family: 'Evolventa', Arial, sans-serif;
-    color: #0b1b33;
-    font-size: 1rem;   
     text-decoration: none;
-    display: inline-block;
-    min-width: 120px;
     
 }
 
@@ -90,4 +80,85 @@
     transform: translateY(-2px);
     color: rgb(148, 11, 125);
     text-decoration: underline;
+}
+
+.logout-btn {
+    width: 150px;
+    margin-left: 33%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background-color: #102a49;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background-color: #0b1b33;
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    width: 170px;
+    margin: 175px;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background-color: #cc587b;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.cancel-btn:hover {
+    transform: translateY(-2px);
+    background-color: #cc587b;
+}
+
+.reset-btn {
+    width: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background-color: #102a49;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.reset-btn:hover {
+    background-color: #0b1b33;
+    transform: translateY(-2px);
+}
+
+.register-btn {
+    width: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background-color: #102a49;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.register-btn:hover {
+    background-color: #0b1b33;
+    transform: translateY(-2px);
 }
