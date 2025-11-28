@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms/forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="profile-title">Личный кабинет</h2>
+<div class="profile-card">
+
+    <div class="profile-field">
+        <i class="fas fa-user"></i>
+        <h3> {{ user.last_name }} </h3>
+        <h3> {{ user.first_name }} </h3> 
+    {% if user.patronymic %}
+        <h3> {{ user.patronymic }} </h3>
+    {% endif %}
+    </div>
+    <div class="profile-field">
+        <i class="fas fa-birthday-cake"></i>
+        <span>Дата рождения: {{ user.birth_date }} </span> 
+    </div>
+    <div class="profile-field">
+        <i class="fas fa-phone"></i>
+        <span>Телефон: {{ user.phone }} </span>
+    </div>
+    <div class="profile-field">
+        <i class="fas fa-envelope"></i>
+        <span>Email: {{ user.email }} </span>
+    </div>
+
+    <p class="extra-text">
+        <a href="{% url 'account_reset_password' %}" class="change-btn">Сменить пароль</a>
+    </p>
+    <button class="exit-btn" onclick="location.href='{% url 'account_logout' %}'">
+        Выйти
+    </button>
+</div>
+{% endblock %}

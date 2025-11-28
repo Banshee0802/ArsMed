@@ -1,0 +1,84 @@
+/* Профиль пользователя */
+.profile-card {
+    background-color: #ffffff;
+    max-width: 500px;
+    height: 500px;
+    margin: 50px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    font-family: 'Evolventa', Arial, sans-serif;
+    color: #102a49;
+}
+
+.profile-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 45px;
+    color: #102a49;
+}
+
+.profile-field h3 {
+    margin: 3px;
+}
+
+.profile-field {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    font-size: 1rem;
+}
+
+.profile-field i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    color: #102a49;
+    width: 25px;
+}
+
+.profile-field span {
+    font-weight: 500;
+}
+
+/* Кнопка выхода */
+.profile-card .exit-btn {
+    display: block;
+    margin-top: 25px;
+    padding: 12px 35px;
+    background-color: #cc587b;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    color: #ffffff;
+}
+
+.profile-card .exit-btn:hover {
+    background-color:  #efebec;
+    color: #000000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.change-btn {
+    display: block;
+    margin-top: 25px;
+    padding: 10px;
+    max-width: 210px;
+    background-color: #efebec;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    color: #102a49;
+}
+
+.change-btn:hover {
+    background-color: #102a49;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}

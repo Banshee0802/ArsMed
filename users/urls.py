@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import CustomSignupView
+from .views import CustomSignupView, ProfileView
 
 app_name = 'users'
 
 urlpatterns = [
-    # path('signup/', CustomSignupView.as_view(), name='signup'),
+    path('profile/', ProfileView.as_view(), name="profile"),
 ]
