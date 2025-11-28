@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
     {% block extra_css %}{% endblock %}
     {% comment %} <link rel="stylesheet" href="{% static 'core/css/mobile.css' %}"> {% endcomment %}
-    <link href="https://fonts.cdnfonts.com/css/evolventa" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=60074ed8-15fe-472a-844f-d40b20b3d245&lang=ru_RU" defer></script>
     <script src="{% static 'js/messages.js' %}" defer></script>
@@ -34,8 +33,10 @@
             </div>
         </div>
             {% if user.is_authenticated %}
-                <a href="{% url 'account_logout' %}" class="exit-btn">
-                    <i class="fas fa-user"></i>Выйти</a>
+                <a href="{% url 'users:profile' %}" class="profile-btn">
+                    <i class="fas fa-user"></i>Личный кабинет</a>
+                {% comment %} <a href="{% url 'account_logout' %}" class="exit-btn">
+                    <i class="fas fa-user"></i>Выйти</a> {% endcomment %}
             {% else %}
                 <a href="{% url 'account_login' %}" class="cabinet-btn">
                     <i class="fas fa-user"></i> Войти
