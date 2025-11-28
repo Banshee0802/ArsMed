@@ -70,7 +70,8 @@
         <div class="checkbox-group">
             <label class="checkbox-container">
                 {{ form.consent_personal }}
-                Я даю согласие на обработку персональных данных
+                Я даю согласие на обработку
+                <a href="{% url 'privacy_policy' %}">персональных данных</a>
                 {{ form.consent_personal.errors }}
             </label>
         </div>
