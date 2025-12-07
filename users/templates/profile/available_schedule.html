@@ -1,0 +1,42 @@
+{% extends "profile/profile.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="schedule-container">
+    <h2>Расписание врачей</h2>
+
+    {% if doctors %}
+        {% for doctor, slots in doctors.items %}
+            <div class="doctor-block">
+                <h3>{{ doctor.last_name }}</h3>
+                <h3>{{ doctor.first_name }}</h3>
+                {% if doctor.patronymic %}
+                <h3>{{ doctor.patronymic }}</h3>
+                {% endif %}
+                {% for date, times in slots.items %}
+                    <div class="date-block">
+                        <h4>{{ date }}</h4>
+
+                        <div class="time-grid">
+                            {% for slot in times %}
+                                <a href="{% url 'users:book_appointment' slot.id %}" 
+                                   class="time-btn">
+                                    {{ slot.start_time|time:"H:i" }}
+                                </a>
+                                
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-slots">Нет доступных расписаний.</p>
+    {% endif %}
+</div>
+{% endblock %}

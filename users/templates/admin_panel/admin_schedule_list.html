@@ -1,0 +1,57 @@
+{% extends "profile/profile.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-card">
+
+    <h1 class="admin-title">Расписание врачей</h1>
+
+    <a href="{% url 'users:admin_schedule_add' %}" class="admin-btn add-btn">
+        + Добавить расписание
+    </a>
+
+    {% if schedules %}
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th>Врач</th>
+                <th>Дата</th>
+                <th>Время</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for sch in schedules %}
+            <tr>
+                <td>{{ sch.doctor }}</td>
+                <td>{{ sch.date }}</td>
+                <td>{{ sch.start_time }} — {{ sch.end_time }}</td>
+                <td>
+                    {% if sch.is_available %}
+                        Доступно
+                    {% else %}
+                        Занято {{ sch.booked_by.last_name }} {{ sch.booked_by.first_name }}
+                        {% if sch.booked_by.patronymic %}
+                            {{ sch.booked_by.patronymic }}
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+        <p class="no-slots">Расписаний пока нет.</p>
+    {% endif %}
+
+    <a href="{% url 'users:profile' %}" class="back-btn">Назад</a>
+</div>
+
+{% endblock %}

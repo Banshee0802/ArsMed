@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import (HeroCard, SmallCard, SquareCard, 
-                     Doctor, Services, Promotion, Contacts
+                     Doctor, Services, Promotion, 
+                     Contacts, Schedule
                      )
 
 admin.site.register(HeroCard)
@@ -10,3 +11,4 @@ admin.site.register(Doctor)
 admin.site.register(Services)
 admin.site.register(Promotion)
 admin.site.register(Contacts)
+admin.site.register(Schedule)

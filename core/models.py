@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 from datetime import date
+from users.models import CustomUser
 
 
 class HeroCard(models.Model):
@@ -161,3 +162,29 @@ class Contacts(models.Model):
     class Meta:
         verbose_name = "Контакт"
         verbose_name_plural = "Контакты"
+
+
+class Schedule(models.Model):
+    STATUS_CHOICES = [
+        ('available', 'Свободно'),
+        ('booked', 'Занято'),
+        ('confirmed', 'Подтверждено'),
+        ('cancelled', 'Отменено'),
+    ]
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='schedules', verbose_name='Доктор')
+    date = models.DateField(verbose_name="Дата")
+    start_time = models.TimeField(verbose_name="Начало приёма")
+    end_time = models.TimeField(verbose_name="Конец приёма")
+    is_available = models.BooleanField(default=True, verbose_name="Доступно")
+    booked_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Забронировано")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
+    
+    def __str__(self):
+        return f"{self.doctor} - {self.date} {self.start_time}-{self.end_time}"
+
+    class Meta:
+        unique_together = ('doctor', 'date', 'start_time')
+        ordering = ['date', 'start_time']
+        verbose_name = "График"
+        verbose_name_plural = "Графики"
+

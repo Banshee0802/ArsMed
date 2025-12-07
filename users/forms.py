@@ -1,6 +1,7 @@
 from allauth.account.forms import SignupForm
 from django import forms
 from .models import CustomUser
+from core.models import Schedule
 
 
 class CustomSignupForm(SignupForm):
@@ -29,3 +30,14 @@ class CustomSignupForm(SignupForm):
         user.phone = self.cleaned_data['phone']
         user.save()
         return user
+    
+
+class ScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ['doctor', 'date', 'start_time', 'end_time', 'is_available']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time'}),
+        }

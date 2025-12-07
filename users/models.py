@@ -34,4 +34,3 @@ class CustomUser(AbstractUser):
             self.add_error('phone', 'Телефон обязателен')
 
         return cleaned_data
-

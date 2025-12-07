@@ -8,34 +8,47 @@
 
 {% block content %}
 <h2 class="profile-title">Личный кабинет</h2>
-<div class="profile-card">
+<div class="profile-wrapper">
+    <div class="profile-card">
 
-    <div class="profile-field">
-        <i class="fas fa-user"></i>
-        <h3> {{ user.last_name }} </h3>
-        <h3> {{ user.first_name }} </h3> 
-    {% if user.patronymic %}
-        <h3> {{ user.patronymic }} </h3>
-    {% endif %}
-    </div>
-    <div class="profile-field">
-        <i class="fas fa-birthday-cake"></i>
-        <span>Дата рождения: {{ user.birth_date }} </span> 
-    </div>
-    <div class="profile-field">
-        <i class="fas fa-phone"></i>
-        <span>Телефон: {{ user.phone }} </span>
-    </div>
-    <div class="profile-field">
-        <i class="fas fa-envelope"></i>
-        <span>Email: {{ user.email }} </span>
-    </div>
+        <div class="profile-field">
+            <i class="fas fa-user"></i>
+            <h3> {{ user.last_name }} </h3>
+            <h3> {{ user.first_name }} </h3> 
+        {% if user.patronymic %}
+            <h3> {{ user.patronymic }} </h3>
+        {% endif %}
+        </div>
+        <div class="profile-field">
+            <i class="fas fa-birthday-cake"></i>
+            <span>Дата рождения: {{ user.birth_date }} </span> 
+        </div>
+        <div class="profile-field">
+            <i class="fas fa-phone"></i>
+            <span>Телефон: {{ user.phone }} </span>
+        </div>
+        <div class="profile-field">
+            <i class="fas fa-envelope"></i>
+            <span>Email: {{ user.email }} </span>
+        </div>
 
-    <p class="extra-text">
-        <a href="{% url 'account_reset_password' %}" class="change-btn">Сменить пароль</a>
-    </p>
-    <button class="exit-btn" onclick="location.href='{% url 'account_logout' %}'">
-        Выйти
-    </button>
+        <p class="extra-text">
+            <a href="{% url 'account_reset_password' %}" class="change-btn">Сменить пароль</a>
+        </p>
+        <button class="exit-btn" onclick="location.href='{% url 'account_logout' %}'">
+            Выйти
+        </button>
+    </div>
+    <div class='schedule-block'>
+        <a href="{% url 'users:available_schedule' %}" class="schedule-btn">
+            Посмотреть расписание врачей
+        </a>
+
+        {% if user.is_staff %}
+        <a href="{% url 'users:admin_schedule_list' %}" class="admin-btn">
+            Управлять расписанием врачей
+        </a>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
