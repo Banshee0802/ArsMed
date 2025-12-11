@@ -153,7 +153,7 @@ def confirm_request(request, pk):
 
 def cancel_request(request, pk):
      slot = get_object_or_404(Schedule, id=pk)
-     slot.status = 'cancelled'
+     slot.status = 'available'
      slot.booked_by = None
      slot.save()
      messages.success(request, "Запись отменена")
