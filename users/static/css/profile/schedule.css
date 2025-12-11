@@ -132,7 +132,8 @@
 }
 
 .status {
-    font-weight: 700
+    font-weight: 700;
+    text-align: end;
 }
 
 .status.free { color: #2e7d32; }
