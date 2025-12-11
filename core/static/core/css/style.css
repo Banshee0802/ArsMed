@@ -19,20 +19,32 @@
 }
 
 
-body {
+html, body {
     font-family: 'Evolventa', sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
 }
 
 /* Стили для логотипа */
 .header-container {
-    position: relative;
-    margin-top: 20px;
+    
+
     
 }
 
 .header-image {
     position: absolute;
-    top: -90px;
     left: 50px;
     z-index: 10;
 }
@@ -46,7 +58,7 @@ body {
 /* Стили для блока с номером телефона */
 .top-info {
     position: absolute;
-    top: -50px;
+    top: 30px;
     left: 20%;
     z-index: 10;
 }
@@ -62,7 +74,7 @@ body {
 /* Адрес */
 .top-info-address {
     position: absolute;
-    top: -50px;
+    top: 30px;
     left: 55%;
     z-index: 10;
 }
@@ -76,7 +88,7 @@ body {
 /* Кнопка Личный кабинет */
 
 .cabinet-btn {
-    margin-top: -70px;
+    margin-top: 20px;
     position: absolute;
     margin-left: 72%;
     width: 100px;
@@ -98,7 +110,7 @@ body {
 }
 
 .signup-btn {
-    margin-top: -70px;
+    margin-top: 20px;
     position: absolute;
     margin-left: 78%;
     width: 150px;
@@ -144,7 +156,7 @@ body {
 }
 
 .profile-btn {
-    margin-top: -70px;
+    margin-top: 20px;
     position: absolute;
     margin-left: 76%;
     width: 200px;
@@ -695,10 +707,6 @@ body {
 
 .footer-bottom-links a:hover {
     color: #4facfe;
-}
-
-.main-content {
-    margin-bottom: 100px; 
 }
 
 @media (max-width: 768px) {

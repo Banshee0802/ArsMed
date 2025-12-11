@@ -14,7 +14,7 @@
     <script src="{% static 'js/messages.js' %}" defer></script>
 </head>
 <body>
-
+<div class="wrapper">
   <!-- Шапка над навбаром -->
   <div class="header-container">
         <div class="header-image">
@@ -87,7 +87,6 @@
         {% endif %}
 
     <div class="main-content">
-
     {% block content %}{% endblock content %}
     </div>
 
@@ -150,5 +149,6 @@
             </div>
         </div>
     </footer>
+</div>
 </body>
 </html>
