@@ -249,6 +249,14 @@
 .requests-card {
     background-color:  #102a4915;
     border-radius: 30px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.requests-text {
+    font-size: 1.1rem;
+    color:  #102a49;
+    margin: 7px 7px 7px;
 }
 
 .requests-title {

@@ -9,16 +9,23 @@
 <div class="requests-container">
 
     <h2 class="requests-title">Мои записи</h2>
-    <div class="requests-card">
+    
     {% for a in appointments %}
-    
-        <p>Дата: {{ a.date }} — {{ a.start_time }}</p>
-        <p>Врач: {{ a.doctor }}</p>
-        <p>Специальность: {{ a.doctor.specialization }}</p>
-    
+    <div class="requests-card">
+        <h3>Дата:</h2>
+            <p class="requests-text">{{ a.date }}</p>
+        <h3>Время:</h2>
+        <p class="requests-text">{{ a.start_time }}</p>
+        <h3>Врач:</h3>
+        <p class="requests-text">{{ a.doctor }}</p>
+        <h3>Специальность:</h3>
+        <p class="requests-text">{{ a.doctor.specialization }}</p>
+    </div>
     {% empty %}
         <p>У вас пока нет записей.</p>
+       
     {% endfor %}
-    </div>
+
+    <h3>Для отмены записи необходимо позвонить на ресепшн по номеру: +7 999 123 45 67</h3>
 </div>
 {% endblock %}
