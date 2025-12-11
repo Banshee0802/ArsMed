@@ -37,12 +37,6 @@ html, body {
 }
 
 /* Стили для логотипа */
-.header-container {
-    
-
-    
-}
-
 .header-image {
     position: absolute;
     left: 50px;
@@ -58,7 +52,7 @@ html, body {
 /* Стили для блока с номером телефона */
 .top-info {
     position: absolute;
-    top: 30px;
+    top: 35px;
     left: 20%;
     z-index: 10;
 }
@@ -74,7 +68,7 @@ html, body {
 /* Адрес */
 .top-info-address {
     position: absolute;
-    top: 30px;
+    top: 35px;
     left: 55%;
     z-index: 10;
 }
