@@ -175,7 +175,6 @@ class Schedule(models.Model):
     date = models.DateField(verbose_name="Дата")
     start_time = models.TimeField(verbose_name="Начало приёма")
     end_time = models.TimeField(verbose_name="Конец приёма")
-    is_available = models.BooleanField(default=True, verbose_name="Доступно")
     booked_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Забронировано")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
     
