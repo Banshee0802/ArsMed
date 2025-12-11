@@ -61,151 +61,266 @@
 
 
 /* Стили для расписания врачей в админ-профиле */
-
-/* Общая карточка списка и форм */
-.admin-card {
-    background-color: #ffffff;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    font-family: 'Evolventa', Arial, sans-serif;
-    color: #102a49;
-}
-
-/* Заголовки */
-.admin-title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: #102a49;
-}
-
-/* Таблица */
-.schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.schedule-table th,
-.schedule-table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
-    font-size: 1rem;
-}
-
-.schedule-table th {
-    font-weight: 700;
-    background-color: #efebec;
-    color: #102a49;
-}
-
-.schedule-table tr:hover td {
-    background-color: rgba(16, 42, 73, 0.07);
-}
-
-/* Кнопки CRUD */
-.admin-btn {
-    padding: 8px 20px;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: 0.3s ease;
-    display: inline-block;
-}
-
 .add-btn {
-    background-color: #102a49;
-    color: #fff;
-    margin-bottom: 15px;
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px;
+    max-width: 210px;
+    background-color: #efebec;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    color: #102a49;
 }
 
 .add-btn:hover {
-    background-color: #efebec;
-    color: #102a49;
-}
-
-.edit-btn {
-    background-color: #efebec;
-    color: #102a49;
-}
-
-.edit-btn:hover {
     background-color: #102a49;
     color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-.delete-btn {
-    background-color: #cc587b;
+.filter-form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-form select,
+.filter-form input {
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-family: 'Evolventa';
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background-color: #102a49;
     color: #fff;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+.filter-btn:hover {
+    background: #efebec;
+    color: #102a49;
 }
 
-.delete-btn:hover {
-    background-color: #efebec;
-    color: #000;
+.doctor-title {
+    font-size: 22px;
+    margin-top: 25px;
 }
 
-/* Форма */
-.admin-form label {
+.date-block {
+    background: #f7f8fa;
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.slot-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    margin: 5px 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.status {
+    font-weight: 700
+}
+
+.status.free { color: #2e7d32; }
+.status.booked { color: #ef6c00; }
+.status.confirmed { color: #1565c0; }
+
+
+/* Форма для создания расписания */
+
+.admin-card {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.admin-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
     font-weight: 600;
-    margin-top: 10px;
+    color: #102a49;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-form p {
+    margin: 0;
+}
+
+.admin-form label {
     display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
 }
 
 .admin-form input,
 .admin-form select {
     width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    font-family: 'Evolventa';
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #f8fafc;
+    transition: 0.2s;
+}
+
+.admin-form input:focus,
+.admin-form select:focus {
+    border-color:  #102a49;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px  #102a49;
 }
 
 .submit-btn {
-    background-color: #102a49;
-    color: #fff;
-    padding: 12px 35px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
     display: block;
-    margin: 10px auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    max-width: 210px;
+    background-color: #102a49;
+    border-radius: 30px;
     font-size: 1rem;
-    transition: 0.3s ease;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    color:  #efebec;
 }
 
 .submit-btn:hover {
-    background-color: #efebec;
+    background-color:  #efebec;
     color: #102a49;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Кнопка назад */
 .back-btn {
-    display: block;
-    margin: 20px auto 0;
-    padding: 12px 30px;
+
+    margin-top: 25px;
+    padding: 12px 35px;
     background-color: #cc587b;
     border: none;
     border-radius: 30px;
     font-size: 1rem;
     cursor: pointer;
-    text-align: center;
-    color: #ffffff;
-    max-width: 200px;
     transition: all 0.3s ease;
+    text-align: center;
     text-decoration: none;
+    color: #ffffff;
 }
 
 .back-btn:hover {
-    background-color: #efebec;
+    background-color:  #efebec;
     color: #000000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
+
+/* Стили для заявок пациентов */
+
+.requests-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.requests-card {
+    background-color:  #102a4915;
+    border-radius: 30px;
+}
+
+.requests-title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color:  #102a49;
+}
+
+.request-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-left: 6px solid #3b82f6;
+}
+
+.request-card p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.request-card b {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.request-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.confirm-btn,
+.cancel-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+/* Кнопка подтверждения */
+.confirm-btn {
+    background-color: #10b981;
+    color: #fff;
+}
+
+.confirm-btn:hover {
+    background-color: #0f9d74;
+}
+
+/* Кнопка отмены */
+.cancel-btn {
+    background-color: #ef4444;
+    color: #fff;
+}
+
+.cancel-btn:hover {
+    background-color: #dc2626;
+}
+
+/* Когда нет заявок */
+.no-requests {
+    text-align: center;
+    font-size: 18px;
+    color: #475569;
+    margin-top: 40px;
+}
+

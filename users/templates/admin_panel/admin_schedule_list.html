@@ -8,50 +8,82 @@
 {% block content %}
 
 <div class="admin-card">
+    <h1 class="admin-title">Расписание</h1>
 
-    <h1 class="admin-title">Расписание врачей</h1>
-
-    <a href="{% url 'users:admin_schedule_add' %}" class="admin-btn add-btn">
+     <a href="{% url 'users:admin_schedule_add' %}" class="admin-btn add-btn">
         + Добавить расписание
-    </a>
+    </a> 
+
+    <!-- Фильтры -->
+    <form method="get" class="filter-form">
+        <select name="doctor">
+            <option value="">Все врачи</option>
+            {% for doc in doctors %}
+                <option value="{{ doc.id }}" {% if request.GET.doctor == doc.id|stringformat:"s" %}selected{% endif %}>
+                    {{ doc }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <input type="date" name="date" value="{{ request.GET.date }}">
+
+        <select name="status">
+            <option value="">Все статусы</option>
+            {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="filter-btn">Применить</button>
+    </form>
+
+    <hr>
 
     {% if schedules %}
-    <table class="schedule-table">
-        <thead>
-            <tr>
-                <th>Врач</th>
-                <th>Дата</th>
-                <th>Время</th>
-                <th>Статус</th>
-            </tr>
-        </thead>
+    
+        {% regroup schedules by doctor as doctor_list %}
 
-        <tbody>
-            {% for sch in schedules %}
-            <tr>
-                <td>{{ sch.doctor }}</td>
-                <td>{{ sch.date }}</td>
-                <td>{{ sch.start_time }} — {{ sch.end_time }}</td>
-                <td>
-                    {% if sch.is_available %}
-                        Доступно
-                    {% else %}
-                        Занято {{ sch.booked_by.last_name }} {{ sch.booked_by.first_name }}
-                        {% if sch.booked_by.patronymic %}
-                            {{ sch.booked_by.patronymic }}
-                        {% endif %}
-                    {% endif %}
-                </td>
-            </tr>
+        {% for doctor_group in doctor_list %}
+            <h2 class="doctor-title">{{ doctor_group.grouper }}</h2>
+
+            {% regroup doctor_group.list by date as date_list %}
+
+            {% for date_group in date_list %}
+                <div class="date-block">
+                    <h3>{{ date_group.grouper }}</h3>
+
+                    <div class="time-list">
+                        {% for slot in date_group.list %}
+                            <div class="slot-row">
+                                <span class="time">{{ slot.start_time }} — {{ slot.end_time }}</span>
+
+                                {% if slot.status == 'available' %}
+                                    <span class="status free">Свободно</span>
+
+                                {% elif slot.status == 'booked' %}
+                                    <span class="status booked">
+                                        Ожидает подтверждения ({{ slot.booked_by }})
+                                    </span>
+
+                                {% elif slot.status == 'confirmed' %}
+                                    <span class="status confirmed">
+                                        Подтверждено ({{ slot.booked_by }})
+                                    </span>
+
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
 
     {% else %}
-        <p class="no-slots">Расписаний пока нет.</p>
+        <p>Нет расписаний</p>
     {% endif %}
-
-    <a href="{% url 'users:profile' %}" class="back-btn">Назад</a>
 </div>
-
-{% endblock %}
+ 
+{% endblock content %}
+    

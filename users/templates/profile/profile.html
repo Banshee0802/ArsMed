@@ -40,13 +40,20 @@
         </button>
     </div>
     <div class='schedule-block'>
+        {% if not user.is_staff %}
         <a href="{% url 'users:available_schedule' %}" class="schedule-btn">
             Посмотреть расписание врачей
         </a>
-
+        <a href="{% url 'users:my_appointments' %}" class="schedule-btn">
+            Текущие записи
+        </a>
+        {% endif %}
         {% if user.is_staff %}
         <a href="{% url 'users:admin_schedule_list' %}" class="admin-btn">
             Управлять расписанием врачей
+        </a>
+        <a href="{% url 'users:schedule_requests' %}" class="admin-btn">
+            Заявки
         </a>
         {% endif %}
     </div>

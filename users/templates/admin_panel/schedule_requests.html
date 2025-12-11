@@ -1,0 +1,38 @@
+{% extends "profile/profile.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="requests-container">
+
+    <h1 class="requests-title">Заявки пациентов</h1>
+
+    {% if requests %}
+        {% for req in requests %}
+            <div class="request-card">
+
+                <p><b>Пациент:</b> {{ req.booked_by.last_name }} {{ req.booked_by.first_name }} {{req.booked_by.patronymic}}</p>
+                <p><b>Номер телефона:</b> {{ req.booked_by.phone }}</p>
+                <p><b>Email:</b> {{ req.booked_by.email }}</p>
+                <p><b>Врач:</b> {{ req.doctor }}</p>
+                <p><b>Дата:</b> {{ req.date }}</p>
+                <p><b>Время:</b> {{ req.start_time }} — {{ req.end_time }}</p>
+
+                <div class="request-actions">
+                    <a href="{% url 'users:confirm_request' req.id %}" class="confirm-btn">Подтвердить</a>
+                    <a href="{% url 'users:cancel_request' req.id %}" class="cancel-btn">Отклонить</a>
+                </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-requests">Нет новых заявок.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

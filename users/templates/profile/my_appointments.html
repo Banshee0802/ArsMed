@@ -1,0 +1,24 @@
+{% extends 'profile/profile.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="requests-container">
+
+    <h2 class="requests-title">Мои записи</h2>
+    <div class="requests-card">
+    {% for a in appointments %}
+    
+        <p>Дата: {{ a.date }} — {{ a.start_time }}</p>
+        <p>Врач: {{ a.doctor }}</p>
+        <p>Специальность: {{ a.doctor.specialization }}</p>
+    
+    {% empty %}
+        <p>У вас пока нет записей.</p>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
