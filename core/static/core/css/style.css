@@ -81,74 +81,6 @@ html, body {
 
 /* Кнопка Личный кабинет */
 
-.cabinet-btn {
-    margin-top: 20px;
-    position: absolute;
-    margin-left: 72%;
-    width: 100px;
-    height: 50px;
-    background-color: #efebec;
-    border-width: 1px;
-    border-radius: 30px;
-    border-color: #102a49;
-    font-family: 'Evolventa', Arial, sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: #102a49;
-}
-
-.signup-btn {
-    margin-top: 20px;
-    position: absolute;
-    margin-left: 78%;
-    width: 150px;
-    height: 50px;
-    background-color: #efebec;
-    border-width: 1px;
-    border-radius: 30px;
-    border-color: #102a49;
-    font-family: 'Evolventa', Arial, sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: #102a49;
-}
-
-.cabinet-btn:hover {
-    background-color: #102a49;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-.cabinet-btn i {
-    font-size: 0.9rem;
-    margin-right: 5px;
-}
-
-.signup-btn:hover {
-    background-color: #102a49;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-.signup-btn i {
-    font-size: 0.9rem;
-    margin-right: 5px;
-}
-
 .profile-btn {
     margin-top: 20px;
     position: absolute;
@@ -182,8 +114,6 @@ html, body {
     font-size: 0.9rem;
     margin-right: 5px;
 }
-
-
 
 /* Стили для навбара */
 .navbar {
