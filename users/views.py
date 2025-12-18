@@ -180,4 +180,4 @@ class MyAppointmentsView(LoginRequiredMixin, ListView):
      def get_queryset(self):
           return Schedule.objects.filter(
                booked_by=self.request.user
-          ).exclude(status='cancelled').order_by('date', 'start_time')
+          ).exclude(status__in=['booked', 'available']).order_by('date', 'start_time')

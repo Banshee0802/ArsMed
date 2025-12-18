@@ -10,7 +10,7 @@
 <h2 class="profile-title">Личный кабинет</h2>
 <div class="profile-wrapper">
     <div class="profile-card">
-
+{% if not user.is_staff %}
         <div class="profile-field">
             <i class="fas fa-user"></i>
             <h3> {{ user.last_name }} </h3>
@@ -37,10 +37,9 @@
         </p>
         <button class="exit-btn" onclick="location.href='{% url 'account_logout' %}'">
             Выйти
-        </button>
+        </button>  
     </div>
-    <div class='schedule-block'>
-        {% if not user.is_staff %}
+    <div class='schedule-block'>      
         <a href="{% url 'users:available_schedule' %}" class="schedule-btn">
             Посмотреть расписание врачей
         </a>
@@ -48,6 +47,7 @@
             Текущие записи
         </a>
         {% endif %}
+        
         {% if user.is_staff %}
         <a href="{% url 'users:admin_schedule_list' %}" class="admin-btn">
             Управлять расписанием врачей
@@ -55,7 +55,11 @@
         <a href="{% url 'users:schedule_requests' %}" class="admin-btn">
             Заявки
         </a>
+        <button class="exit-btn" onclick="location.href='{% url 'account_logout' %}'">
+            Выйти
+        </button>
         {% endif %}
     </div>
+    
 </div>
 {% endblock %}
