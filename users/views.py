@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from allauth.account.views import SignupView
 from .forms import CustomSignupForm, ScheduleForm
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from core.models import Schedule, Doctor
 from django.urls import reverse_lazy
@@ -95,6 +95,18 @@ class ScheduleCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
          
          Schedule.objects.bulk_create(slots)
          return redirect(self.success_url) 
+     
+
+class ScheduleUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
+     model = Schedule
+     form_class = ScheduleForm
+     template_name = 'admin_panel/admin_schedule_edit.html'
+     success_url = reverse_lazy('users:admin_schedule_list')
+
+class ScheduleDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
+     model = Schedule
+     template_name = 'admin_panel/admin_schedule_delete.html'
+     success_url = reverse_lazy('users:admin_schedule_list')
 
 
 class AvailableScheduleListView(LoginRequiredMixin, ListView):

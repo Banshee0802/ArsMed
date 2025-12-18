@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-card">
+
+    <h1 class="admin-title">Редактировать запись</h1>
+
+    <form method="post" class="admin-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="submit-btn">Сохранить</button>
+    </form>
+
+    <a href="{% url 'users:admin_schedule_list' %}" class="back-btn">Назад</a>
+
+</div>
+
+{% endblock %}

@@ -13,7 +13,6 @@
      <a href="{% url 'users:admin_schedule_add' %}" class="admin-btn add-btn">
         + Добавить расписание
     </a> 
-
     <!-- Фильтры -->
     <form method="get" class="filter-form">
         <select name="doctor">
@@ -75,6 +74,10 @@
                                     </span>
 
                                 {% endif %}
+                                <a href="{% url 'users:admin_schedule_edit' slot.id %}" class="edit-btn">
+                                    Редактировать</a>
+                                <a href="{% url 'users:admin_schedule_delete' slot.id %}" class="delete-btn">
+                                    Удалить</a>
                             </div>
                         {% endfor %}
                     </div>

@@ -132,19 +132,60 @@
 }
 
 .status {
-    font-weight: 700;
-    text-align: end;
+    font-weight: 600;
+    text-align: center;
+    width: 150px;
 }
 
 .status.free { color: #2e7d32; }
 .status.booked { color: #ef6c00; }
-.status.confirmed { color: #1565c0; }
+.status.confirmed { color: #1565c0;}
 
+.edit-btn {
+    height: 40px;
+    padding: 10px 30px;
+    background-color:  #102a49;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.edit-btn:hover {
+    background-color:  #efebec;
+    color: #000000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.delete-btn {
+    height: 40px;
+    padding: 10px 30px;
+    background-color: #cc587b;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.delete-btn:hover {
+    background-color:  #efebec;
+    color:#102a49;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
+}
 
 /* Форма для создания расписания */
 
 .admin-card {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 40px auto;
     padding: 30px;
     background: #ffffff;
@@ -219,7 +260,6 @@
 }
 
 .back-btn {
-
     margin-top: 25px;
     padding: 12px 35px;
     background-color: #cc587b;
@@ -270,11 +310,11 @@
 
 .request-card {
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 30px;
     padding: 25px;
     margin-bottom: 25px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    border-left: 6px solid #3b82f6;
+    border-left: 6px solid #102a49;
 }
 
 .request-card p {
@@ -300,14 +340,14 @@
     padding: 10px 18px;
     font-size: 15px;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 30px;
     text-decoration: none;
     transition: 0.2s;
 }
 
 /* Кнопка подтверждения */
 .confirm-btn {
-    background-color: #10b981;
+    background-color: #09583d;
     color: #fff;
 }
 
@@ -317,12 +357,12 @@
 
 /* Кнопка отмены */
 .cancel-btn {
-    background-color: #ef4444;
+    background-color:  #cc587b;
     color: #fff;
 }
 
 .cancel-btn:hover {
-    background-color: #dc2626;
+    background-color: #ca7b93;
 }
 
 /* Когда нет заявок */
@@ -333,3 +373,55 @@
     margin-top: 40px;
 }
 
+/* Удаление слота со временем у врача */
+
+.sch-admin-card {
+    height: 300px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.slot-delete-btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 30px;
+    background-color: #cc587b;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.slot-delete-btn:hover {
+    background-color:  #efebec;
+    color: #000000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+.slot-back-btn {
+    padding: 10px 30px;
+    background-color:#102a49;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.slot-back-btn:hover {
+    background-color:  #efebec;
+    color:#102a49;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}

@@ -35,7 +35,7 @@ class CustomSignupForm(SignupForm):
 class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['doctor', 'date', 'start_time', 'end_time']
+        fields = ['doctor', 'date', 'start_time', 'end_time', 'status']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
