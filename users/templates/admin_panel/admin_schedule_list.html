@@ -73,6 +73,12 @@
                                         <p>({{ slot.booked_by.last_name }} {{ slot.booked_by.first_name }} {{ slot.booked_by.patronymic }}: {{ slot.booked_by.phone }})</p>
                                     </span>
 
+                                {% elif slot.status == 'completed' %}
+                                    <span class="status completed">
+                                       Приём завершен 
+                                       <p>({{ slot.booked_by.last_name }} {{ slot.booked_by.first_name }} {{ slot.booked_by.patronymic }}: {{ slot.booked_by.phone }})</p>
+                                    </span>    
+
                                 {% endif %}
                                 <a href="{% url 'users:admin_schedule_edit' slot.id %}" class="edit-btn">
                                     Редактировать</a>

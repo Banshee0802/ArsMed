@@ -1,4 +1,5 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from allauth.account.views import SignupView
 from .forms import CustomSignupForm, ScheduleForm
@@ -103,6 +104,16 @@ class ScheduleUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
      template_name = 'admin_panel/admin_schedule_edit.html'
      success_url = reverse_lazy('users:admin_schedule_list')
 
+     def form_valid(self, form):
+         appointment = form.save(commit=False)
+
+         if appointment.medical_report and appointment.status != 'completed':
+              appointment.status = 'completed'
+              appointment.completed_at = timezone.now()
+         appointment.save()
+         return super().form_valid(form)
+     
+
 class ScheduleDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
      model = Schedule
      template_name = 'admin_panel/admin_schedule_delete.html'
@@ -177,7 +188,26 @@ class MyAppointmentsView(LoginRequiredMixin, ListView):
      template_name = 'profile/my_appointments.html'
      context_object_name = 'appointments'
 
+
      def get_queryset(self):
-          return Schedule.objects.filter(
-               booked_by=self.request.user
-          ).exclude(status__in=['booked', 'available']).order_by('date', 'start_time')
+        return Schedule.objects.filter(
+            booked_by=self.request.user
+        ).exclude(status='available').order_by('date', 'start_time')
+
+
+     def get_context_data(self, **kwargs):
+          context = super().get_context_data(**kwargs)
+          user = self.request.user
+          today = timezone.now().date()
+
+          context['upcoming_appointments'] = Schedule.objects.filter(
+               booked_by=user,
+               status__in=['booked', 'confirmed'],
+          ).filter(date__gte=today).order_by('date', 'start_time')
+     
+          context['past_appointments'] = Schedule.objects.filter(
+               booked_by=user,
+               status__in=['completed']
+          ).order_by('-date', '-start_time')
+
+          return context

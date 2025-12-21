@@ -169,6 +169,7 @@ class Schedule(models.Model):
         ('available', 'Свободно'),
         ('booked', 'Занято'),
         ('confirmed', 'Подтверждено'),
+        ('completed', 'Приём состоялся'),
         ('cancelled', 'Отменено'),
     ]
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='schedules', verbose_name='Доктор')
@@ -176,6 +177,13 @@ class Schedule(models.Model):
     start_time = models.TimeField(verbose_name="Начало приёма")
     end_time = models.TimeField(verbose_name="Конец приёма")
     booked_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Забронировано")
+    medical_report = models.FileField(
+        upload_to='medical_reports/',
+        null=True,
+        blank=True,
+        verbose_name='Медицинское заключение (PDF)'
+    )
+    completed_at = models.DateTimeField(null=True, blank=True),
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
     
     def __str__(self):

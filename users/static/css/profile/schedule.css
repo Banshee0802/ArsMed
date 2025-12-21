@@ -140,6 +140,7 @@
 .status.free { color: #2e7d32; }
 .status.booked { color: #ef6c00; }
 .status.confirmed { color: #1565c0;}
+.status.completed {color: #555370a6}
 
 .edit-btn {
     height: 40px;

@@ -10,8 +10,8 @@
 
     <h2 class="requests-title">Мои записи</h2>
     
-    {% for a in appointments %}
-    
+    {% for a in upcoming_appointments %}
+
     <div class="requests-card">
         <h3>Дата:</h2>
             <p class="requests-text">{{ a.date }}</p>
@@ -25,6 +25,26 @@
     {% empty %}
         <p>У вас пока нет записей.</p>
        
+    {% endfor %}
+
+    <h2 class="requests-title">Прошедшие записи</h2>
+    {% for a in past_appointments %}
+  
+            <div class="requests-card">
+                <h3>Дата:</h3>
+                <p class="requests-text">{{ a.date }}</p>
+                <h3>Время:</h3>
+                <p class="requests-text">{{ a.start_time }}</p>
+                <h3>Врач:</h3>
+                <p class="requests-text">{{ a.doctor }}</p>
+                <h3>Специальность:</h3>
+                <p class="requests-text">{{ a.doctor.specialization }}</p>
+                {% if a.medical_report %}
+                    <p style='margin-top: 30px;'><a href="{{ a.medical_report.url }}" class='edit-btn' target="_blank">Скачать заключение</a></p>
+                {% endif %}
+            </div>
+    {% empty %}
+        <p>Прошедших записей пока нет.</p>
     {% endfor %}
 
     <h3>Для отмены записи необходимо позвонить на ресепшн по номеру: +7 999 123 45 67</h3>

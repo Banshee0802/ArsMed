@@ -11,9 +11,15 @@
 
     <h1 class="admin-title">Редактировать запись</h1>
 
-    <form method="post" class="admin-form">
+    <form method="post" enctype="multipart/form-data" class="admin-form">
         {% csrf_token %}
         {{ form.as_p }}
+
+        {% if form.instance.medical_report %}
+            <p> Текущий файл: <a href='{{ form.instance.medical_report.url }}' target='_blank'>Скачать</a></p>
+        {% endif %}
+
+        <p>Загрузка заключения автоматически завершит приём</p>
 
         <button type="submit" class="submit-btn">Сохранить</button>
     </form>
