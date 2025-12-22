@@ -1,0 +1,64 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-card">
+
+    <h1 class="admin-title">
+        Пациент
+    </h1>
+
+    <p><strong>Ф.И.О:</strong> {{ patient.last_name }} {{patient.first_name}} 
+    {% if patient.patronymic %} 
+        {{patient.patronymic}} 
+    {% endif %}</p>
+    <p><strong>Email:</strong> {{ patient.email }}</p>
+    <p><strong>Номер телефона:</strong> {{ patient.phone }}</p>
+
+    <hr>
+
+    <h2 style='margin-top: 30px; margin-bottom: 20px'>Текущие записи</h2>
+
+    {% for a in upcoming_appointments %}
+        <div class="requests-card">
+            <p><strong>Дата:</strong> {{ a.date }}</p>
+            <p><strong>Время:</strong> {{ a.start_time }}</p>
+            <p><strong>Врач:</strong> {{ a.doctor }}</p>
+            <p><strong>Специальность:</strong> {{ a.doctor.specialization }}</p>
+        </div>
+    {% empty %}
+        <p>Текущих записей нет.</p>
+    {% endfor %}
+
+    <hr>
+
+    <h2 style='margin-top: 30px; margin-bottom: 20px'>Прошедшие записи</h2>
+
+    {% for a in past_appointments %}
+        <div class="requests-card">
+            <p><strong>Дата:</strong> {{ a.date }}</p>
+            <p><strong>Время:</strong> {{ a.start_time }}</p>
+            <p><strong>Врач:</strong> {{ a.doctor }}</p>
+
+            {% if a.medical_report %}
+                <p style='margin-top: 30px'>
+                    <a href="{{ a.medical_report.url }}" target="_blank" class="edit-btn">
+                        Скачать заключение
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Прошедших записей нет.</p>
+    {% endfor %}
+
+    <p style='margin-top: 40px'><a href="{% url 'users:admin_patients_list' %}" class="back-btn">
+        Назад к списку пациентов
+    </a></p>
+
+</div>
+{% endblock %}

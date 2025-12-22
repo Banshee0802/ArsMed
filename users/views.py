@@ -4,9 +4,10 @@ from django.shortcuts import render, redirect
 from allauth.account.views import SignupView
 from .forms import CustomSignupForm, ScheduleForm
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from core.models import Schedule, Doctor
+from users.models import CustomUser
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 
@@ -197,17 +198,54 @@ class MyAppointmentsView(LoginRequiredMixin, ListView):
 
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
-          user = self.request.user
-          today = timezone.now().date()
+          
+          upcoming, past = get_patient_appointments(self.request.user)
 
-          context['upcoming_appointments'] = Schedule.objects.filter(
-               booked_by=user,
-               status__in=['booked', 'confirmed'],
-          ).filter(date__gte=today).order_by('date', 'start_time')
+          context['upcoming_appointments'] = upcoming
+          context['past_appointments'] = past
+ 
+          return context
      
-          context['past_appointments'] = Schedule.objects.filter(
-               booked_by=user,
-               status__in=['completed']
-          ).order_by('-date', '-start_time')
+
+def get_patient_appointments(user):
+     today = timezone.now().date()
+
+     upcoming = Schedule.objects.filter(
+          booked_by=user,
+          status__in=['booked', 'confirmed'],
+          date__gte=today
+     ).order_by('date', 'start_time')
+
+     past = Schedule.objects.filter(
+          booked_by=user,
+          status='completed'
+     ).order_by('-date', '-start_time')
+
+     return upcoming, past
+
+
+class AdminPatientsListView(ListView):
+     model = CustomUser
+     template_name = 'admin_panel/patients_list.html'
+     context_object_name = 'patients'
+
+     def get_queryset(self):
+          return CustomUser.objects.filter(role='patient').order_by(
+               'last_name', 'first_name'
+          )
+     
+
+class AdminPatientDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView):
+     model = CustomUser
+     template_name = 'admin_panel/patient_detail.html'
+     context_object_name = 'patient'
+
+     def get_context_data(self, **kwargs):
+          context = super().get_context_data(**kwargs)
+
+          upcoming, past = get_patient_appointments(self.object)
+
+          context['upcoming_appointments'] = upcoming
+          context['past_appointments'] = past
 
           return context

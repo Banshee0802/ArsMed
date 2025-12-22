@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-card">
+
+    <h1 class="admin-title">Список пациентов</h1>
+
+    {% for patient in patients %}
+        <div class="requests-card">
+            <p><strong>ФИО:</strong>
+                {{ patient.last_name }} {{ patient.first_name }}
+                {% if patient.patronymic %}
+                {{ patient.patronymic }}
+                {% endif %}
+            </p>
+            <p><strong>Номер телефона:</strong> {{ patient.phone }}</p>
+            <p><strong>Email:</strong> {{ patient.email }}</p>
+            <p style='margin-top: 30px'><a href="{% url 'users:admin_patient_detail' patient.id %}" class="edit-btn">
+                Подробнее
+            </a></p>
+        </div>
+    {% empty %}
+        <p>Пациентов пока нет.</p>
+    {% endfor %}
+
+</div>
+{% endblock %}
