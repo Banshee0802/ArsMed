@@ -24,13 +24,16 @@ class CustomUser(AbstractUser):
         return f"{self.last_name} {self.first_name}"
     
     def clean(self):
-        cleaned_data = super().clean()
-        birth_date = cleaned_data.get("birth_date")
-        phone = cleaned_data.get("phone")
+        super().clean()
 
-        if not birth_date:
-            self.add_error('birth_date', 'Дата рождения обязательна')
-        if not phone:
-            self.add_error('phone', 'Телефон обязателен')
+        if self.role == 'patient':
+            errors = {}
 
-        return cleaned_data
+            if not self.birth_date:
+                errors['birth_date'] = 'Дата рождения обязательна для пациента'
+
+            if not self.phone:
+                errors['phone'] = 'Телефон обязателен для пациента'
+
+            if errors:
+                raise forms.ValidationError(errors)
