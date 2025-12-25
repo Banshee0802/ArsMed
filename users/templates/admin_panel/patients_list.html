@@ -9,13 +9,24 @@
 <div class="admin-card">
 
     <h1 class="admin-title">Список пациентов</h1>
+    <form method="get" class="search-form">
+    <input
+        type="text"
+        name="q"
+        placeholder="Поиск пациента"
+        value="{{ query }}"
+        class="search-input"
+    >
+    <button type="submit" class="submit-btn">Найти</button>
+    </form>
+
 
     {% for patient in patients %}
         <div class="requests-card">
             <p><strong>ФИО:</strong>
-                {{ patient.last_name }} {{ patient.first_name }}
+                {{ patient.last_name.capitalize }} {{ patient.first_name.capitalize }}
                 {% if patient.patronymic %}
-                {{ patient.patronymic }}
+                {{ patient.patronymic.capitalize }}
                 {% endif %}
             </p>
             <p><strong>Номер телефона:</strong> {{ patient.phone }}</p>

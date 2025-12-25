@@ -10,6 +10,7 @@ from core.models import Schedule, Doctor
 from users.models import CustomUser
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 
 class CustomSignupView(SignupView):
@@ -224,15 +225,30 @@ def get_patient_appointments(user):
      return upcoming, past
 
 
-class AdminPatientsListView(ListView):
+class AdminPatientsListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
      model = CustomUser
      template_name = 'admin_panel/patients_list.html'
      context_object_name = 'patients'
 
      def get_queryset(self):
-          return CustomUser.objects.filter(role='patient').order_by(
-               'last_name', 'first_name'
-          )
+          queryset = CustomUser.objects.filter(role='patient')
+
+          query = self.request.GET.get('q')
+          if query:
+               query = query.lower().strip()
+          if query:
+               queryset = queryset.filter(
+                    Q(last_name__icontains=query) |
+                    Q(first_name__icontains=query) |
+                    Q(phone__icontains=query)
+               )
+
+          return queryset.order_by('last_name', 'first_name')
+
+     def get_context_data(self, **kwargs):
+          context = super().get_context_data(**kwargs)
+          context['query'] = self.request.GET.get('q', '')
+          return context
      
 
 class AdminPatientDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView):

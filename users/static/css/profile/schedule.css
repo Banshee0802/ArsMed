@@ -426,3 +426,40 @@
     color:#102a49;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
+
+/* Поиск */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.search-form p {
+    margin: 0;
+}
+
+.search-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+.search-form input,
+.search-form select {
+    width: 30%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #f8fafc;
+    transition: 0.2s;
+}
+
+.search-form input:focus,
+.search-form select:focus {
+    border-color:  #102a49;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px  #102a49;
+}

@@ -22,9 +22,9 @@ class CustomSignupForm(SignupForm):
 
     def save(self, request):
         user = super().save(request)
-        user.last_name = self.cleaned_data['last_name']
-        user.first_name = self.cleaned_data['first_name']
-        user.patronymic = self.cleaned_data['patronymic']
+        user.last_name = self.cleaned_data['last_name'].lower().strip()
+        user.first_name = self.cleaned_data['first_name'].lower().strip()
+        user.patronymic = self.cleaned_data['patronymic'].lower().strip()
         user.gender = self.cleaned_data['gender']
         user.birth_date = self.cleaned_data['birth_date']
         user.phone = self.cleaned_data['phone']
