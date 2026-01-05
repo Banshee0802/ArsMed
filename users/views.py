@@ -11,6 +11,8 @@ from users.models import CustomUser
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.http import JsonResponse
+from django.contrib.auth.decorators import user_passes_test
 
 
 class CustomSignupView(SignupView):
@@ -71,6 +73,12 @@ class ScheduleListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
           context['status_choices'] = Schedule.STATUS_CHOICES
 
           return context
+     
+
+@user_passes_test(lambda u: u.is_staff)
+def new_requests_count_api(request):
+     count = Schedule.objects.filter(status='booked').count()
+     return JsonResponse({'count': count})
           
 
 class ScheduleCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):

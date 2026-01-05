@@ -6,7 +6,7 @@ from .views import (
                     confirm_request, cancel_request,
                     MyAppointmentsView, ScheduleUpdateView,
                     ScheduleDeleteView, AdminPatientsListView,
-                    AdminPatientDetailView
+                    AdminPatientDetailView, new_requests_count_api,
 )
 
 app_name = 'users'
@@ -25,5 +25,6 @@ urlpatterns = [
     path('profile/schedules/requests/<int:pk>/confirm/', confirm_request, name="confirm_request"),
     path('profile/schedules/requests/<int:pk>/cancel/', cancel_request, name="cancel_request"),
     path('profile/my-appointments/', MyAppointmentsView.as_view(), name="my_appointments"),
+    path('api/new_requests_count/', new_requests_count_api, name='new_requests_count_api'),
     
 ]

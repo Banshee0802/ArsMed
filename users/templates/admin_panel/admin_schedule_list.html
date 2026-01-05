@@ -45,7 +45,8 @@
         {% regroup schedules by doctor as doctor_list %}
 
         {% for doctor_group in doctor_list %}
-            <h2 class="doctor-title">{{ doctor_group.grouper }}</h2>
+            <h2 class="doctor-title toggle-doctor" data-doctor-id="{{ forloop.counter }}">{{ doctor_group.grouper }}</h2>
+            <div class="doctor-schedule hidden" id="doctor-{{ forloop.counter }}">
 
             {% regroup doctor_group.list by date as date_list %}
 
@@ -89,12 +90,17 @@
                     </div>
                 </div>
             {% endfor %}
+            </div>
         {% endfor %}
 
     {% else %}
         <p>Нет расписаний</p>
     {% endif %}
 </div>
- 
+
 {% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_schedule_toggle.js' %}"></script>
+{% endblock %}
     

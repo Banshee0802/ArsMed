@@ -463,3 +463,19 @@
     outline: none;
     box-shadow: 0 0 0 3px  #102a49;
 }
+
+.doctor-schedule.hidden {
+    display: none;
+}
+
+.toggle-doctor {
+    cursor: pointer;       
+    user-select: none;        
+    position: relative;       
+    padding-right: 20px;     
+    transition: color 0.2s;   
+}
+
+.toggle-doctor:hover {
+    color: #007bff;          
+}

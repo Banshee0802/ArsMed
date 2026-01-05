@@ -52,8 +52,10 @@
         <a href="{% url 'users:admin_schedule_list' %}" class="admin-btn">
             Управлять расписанием врачей
         </a>
-        <a href="{% url 'users:schedule_requests' %}" class="admin-btn">
+        <a href="{% url 'users:schedule_requests' %}" class="admin-btn" id="requests-link" 
+            data-api-url="{% url 'users:new_requests_count_api' %}">>
             Заявки
+            <span class="badge" id="requests-badge" style="display: none;">0</span>
         </a>
         <a href="{% url 'users:admin_patients_list' %}" class="admin-btn">
             Список пациентов
@@ -66,4 +68,10 @@
     </div>
     
 </div>
+
 {% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/requests_badge.js' %}"></script>
+{% endblock %}
+
