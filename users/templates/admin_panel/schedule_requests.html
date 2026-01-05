@@ -15,7 +15,7 @@
         {% for req in requests %}
             <div class="request-card">
 
-                <p><b>Пациент:</b> {{ req.booked_by.last_name }} {{ req.booked_by.first_name }} {{req.booked_by.patronymic}}</p>
+                <p><b>Пациент:</b> {{ req.booked_by.last_name.capitalize }} {{ req.booked_by.first_name.capitalize }} {{ req.booked_by.patronymic.capitalize }}</p>
                 <p><b>Номер телефона:</b> {{ req.booked_by.phone }}</p>
                 <p><b>Email:</b> {{ req.booked_by.email }}</p>
                 <p><b>Врач:</b> {{ req.doctor }}</p>

@@ -13,10 +13,10 @@
 {% if not user.is_staff %}
         <div class="profile-field">
             <i class="fas fa-user"></i>
-            <h3> {{ user.last_name }} </h3>
-            <h3> {{ user.first_name }} </h3> 
+            <h3> {{ user.last_name.capitalize }} </h3>
+            <h3> {{ user.first_name.capitalize }} </h3> 
         {% if user.patronymic %}
-            <h3> {{ user.patronymic }} </h3>
+            <h3> {{ user.patronymic.capitalize }} </h3>
         {% endif %}
         </div>
         <div class="profile-field">
