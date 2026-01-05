@@ -134,21 +134,24 @@ class AvailableScheduleListView(LoginRequiredMixin, ListView):
      
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
-          slots = Schedule.objects.filter(status='available').select_related("doctor")
+          slots = Schedule.objects.filter(status='available').select_related("doctor").order_by(
+        'doctor__id', 'date', 'start_time')
 
           doctors = {}
-
           for slot in slots:
-               doc = slot.doctor
-               date = slot.date
+               doc_id = slot.doctor.id
+               if doc_id not in doctors:
+                    doctors[doc_id] = {'doctor': slot.doctor, 'dates': {}}
 
-               doctors.setdefault(doc, {})
-               doctors[doc].setdefault(date, [])
-               doctors[doc][date].append(slot)
+               date_str = slot.date.strftime('%Y-%m-%d')
+               if date_str not in doctors[doc_id]['dates']:
+                    doctors[doc_id]['dates'][date_str] = []
 
-          context["doctors"] = doctors
+               doctors[doc_id]['dates'][date_str].append(slot)
+
+          context['doctors'] = doctors
           return context
-     
+               
 
 def book_appointment(request, slot_id):
     slot = get_object_or_404(Schedule, id=slot_id, status='available')
@@ -213,7 +216,7 @@ def get_patient_appointments(user):
 
      upcoming = Schedule.objects.filter(
           booked_by=user,
-          status__in=['booked', 'confirmed'],
+          status='confirmed',
           date__gte=today
      ).order_by('date', 'start_time')
 
