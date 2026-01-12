@@ -224,13 +224,13 @@ def get_patient_appointments(user):
 
      upcoming = Schedule.objects.filter(
           booked_by=user,
-          status='confirmed',
+          status__in=['confirmed', 'booked'],
           date__gte=today
      ).order_by('date', 'start_time')
 
      past = Schedule.objects.filter(
           booked_by=user,
-          status='completed'
+          status__in=['completed', 'cancelled']
      ).order_by('-date', '-start_time')
 
      return upcoming, past

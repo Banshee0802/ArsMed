@@ -21,6 +21,11 @@
             <p class="requests-text">{{ a.doctor }}</p>
         <h3>Специальность:</h3>
             <p class="requests-text">{{ a.doctor.specialization }}</p>
+         {% if a.status == 'booked' %}
+            <span class="status booked">Ожидает подтверждения</span>
+        {% elif a.status == 'confirmed' %}
+            <span class="status confirmed">Подтверждено</span>
+        {% endif %}
     </div>
     {% empty %}
         <p>У вас пока нет записей.</p>
@@ -39,6 +44,13 @@
                 <p class="requests-text">{{ a.doctor }}</p>
                 <h3>Специальность:</h3>
                 <p class="requests-text">{{ a.doctor.specialization }}</p>
+                 {% if a.status == 'cancelled' %}
+                 Отменено
+                 {% elif a.status == 'completed' %}
+                    <span class="status completed">
+                        Приём завершен
+                    </span>
+                 {% endif %}
                 {% if a.medical_report %}
                     <p style='margin-top: 30px;'><a href="{{ a.medical_report.url }}" class='edit-btn' target="_blank">Скачать заключение</a></p>
                 {% endif %}
