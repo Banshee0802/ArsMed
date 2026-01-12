@@ -14,7 +14,7 @@ class CustomSignupForm(SignupForm):
         widget=forms.RadioSelect
     )
     birth_date = forms.DateField(label='Дата рождения', widget=forms.DateInput(attrs={'type': 'date'}))
-    phone = forms.CharField(max_length=15, 
+    phone = forms.CharField(max_length=20, 
                             widget=forms.TextInput(attrs={'id': 'id_phone'}),
                             label="Номер телефона")
     consent_personal = forms.BooleanField(
