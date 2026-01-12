@@ -23,6 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     updateBadge();               
-    setInterval(updateBadge, 30000); 
+    setInterval(updateBadge, 10000); 
 });
 
