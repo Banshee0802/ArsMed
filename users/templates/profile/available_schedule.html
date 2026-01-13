@@ -15,7 +15,7 @@
 
     {% for date, slots in data.dates.items %}
         <div class="date-block">
-            <h4>{{ date }}</h4>
+            <h4>{{ date|date:'d.m.Y' }}</h4>
             <div class="time-grid">
                 {% for slot in slots %}
                     <a href="{% url 'users:book_appointment' slot.id %}" class="time-btn">

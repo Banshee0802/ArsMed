@@ -1,6 +1,5 @@
-from datetime import date, datetime, timedelta, timezone
-from django.utils import timezone
-from django.shortcuts import render, redirect
+from datetime import datetime, timedelta, timezone
+from django.shortcuts import redirect
 from allauth.account.views import SignupView
 from .forms import CustomSignupForm, ScheduleForm
 from django.contrib import messages
@@ -54,7 +53,7 @@ class ScheduleListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
           )
 
           doctor = self.request.GET.get('doctor')
-          date = self.request.GET.get('date')
+          date = self.request.GET.get('date')  
           status = self.request.GET.get('status')
 
           if doctor:
@@ -156,11 +155,10 @@ class AvailableScheduleListView(LoginRequiredMixin, ListView):
                if doc_id not in doctors:
                     doctors[doc_id] = {'doctor': slot.doctor, 'dates': {}}
 
-               date_str = slot.date.strftime('%Y-%m-%d')
-               if date_str not in doctors[doc_id]['dates']:
-                    doctors[doc_id]['dates'][date_str] = []
-
-               doctors[doc_id]['dates'][date_str].append(slot)
+               date_obj = slot.date
+               if date_obj not in doctors[doc_id]['dates']:
+                    doctors[doc_id]['dates'][date_obj] = []
+               doctors[doc_id]['dates'][date_obj].append(slot)
 
           context['doctors'] = doctors
           return context
