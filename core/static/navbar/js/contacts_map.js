@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     ymaps.ready(function () {
         document.querySelectorAll(".map").forEach(function (mapEl) {
-            const lat = parseFloat(mapEl.dataset.lat);
-            const lon = parseFloat(mapEl.dataset.lon);
+            const lat = parseFloat(mapEl.dataset.lat.replace(",", "."));
+            const lon = parseFloat(mapEl.dataset.lon.replace(",", "."));
             const title = mapEl.dataset.title;
 
-            if (!lat || !lon) return;
+            if (isNaN(lat) || isNaN(lon)) return;
 
             const map = new ymaps.Map(mapEl.id, {
                 center: [lat, lon],
