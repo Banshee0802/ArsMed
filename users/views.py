@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.shortcuts import redirect
 from allauth.account.views import SignupView
 from .forms import CustomSignupForm, ScheduleForm
