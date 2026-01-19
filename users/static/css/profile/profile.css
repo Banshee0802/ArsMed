@@ -1,5 +1,6 @@
 .profile-wrapper {
-    display: flex;   
+    display: flex; 
+    justify-content: center;  
     align-items: flex-start; 
     gap: 30px; 
     margin: 50px;
