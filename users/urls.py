@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-                    CustomSignupView, ProfileView, ScheduleCreateView, 
+                    ProfileView, ScheduleCreateView, 
                     ScheduleListView, AvailableScheduleListView, 
                     book_appointment, ScheduleRequestsView,
                     confirm_request, cancel_request,
