@@ -34,6 +34,14 @@ class DoctorsListView(ListView):
         return Doctor.objects.all()
     
 
+class DoctorDetailView(DetailView):
+    model = Doctor
+    template_name = "navbar/doctor_detail.html"
+    context_object_name="doctor"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+    
+
 class ServicesListView(ListView):
     model = Services
     template_name = "navbar/services_list.html"

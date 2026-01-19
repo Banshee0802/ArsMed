@@ -11,17 +11,19 @@
     <div class="doctors-container">
         {% for doctor in doctors %}
         <div class="doctor-card">
-            {% if doctor.photo %}
-            <img src="{{ doctor.photo.url }}" alt="{{ doctor }}" class="doctor-photo">
-            {% else %}
-            <div class="doctor-photo placeholder">Фото</div>
-            {% endif %}
-            <div class="doctor-info">
-                <h3>{{ doctor.last_name }} {{ doctor.first_name }}{% if doctor.patronymic %} {{ doctor.patronymic }}{% endif %}</h3>
-                <p class="specialization">{{ doctor.specialization }}</p>
-                <p class="experience">Опыт работы: {{ doctor.experience }}</p>
-            </div>
-        </div>
+            <a href="{% url 'doctor_detail' doctor.slug %}" class="doctor-link">
+                {% if doctor.photo %}
+                    <img src="{{ doctor.photo.url }}" alt="{{ doctor }}" class="doctor-photo">
+                {% else %}
+                    <img src="{% static 'core/images/doctor_photo/doctor-placeholder.png' %}" alt="Фото врача">
+                {% endif %}
+                <div class="doctor-info">
+                    <h3>{{ doctor.last_name }} {{ doctor.first_name }}{% if doctor.patronymic %} {{ doctor.patronymic }}{% endif %}</h3>
+                    <p class="specialization">{{ doctor.specialization }}</p>
+                    <p class="experience">Опыт работы: {{ doctor.experience }}</p>
+                </div>
+            </a>
+        </div>      
         {% endfor %}
     </div>
 </div>

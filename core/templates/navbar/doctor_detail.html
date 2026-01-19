@@ -1,0 +1,57 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'navbar/doctor_detail.css' %}">
+{% endblock extra_css %}
+
+
+{% block title %}
+{{ doctor.last_name }} {{ doctor.first_name }} — {{ doctor.specialization }}
+{% endblock %}
+
+{% block content %}
+<div class="doctor-detail">
+
+    <div class="doctor-header">
+        <div class="doctor-photo">
+            {% if doctor.photo %}
+                <img src="{{ doctor.photo.url }}" alt="{{ doctor }}">
+            {% else %}
+                <img src="{% static 'core/images/doctor_photo/doctor-placeholder.png' %}" alt="Фото врача">
+            {% endif %}
+        </div>
+
+        <div class="doctor-main-info">
+            <h1 class="doctor-name">
+                {{ doctor.last_name }} {{ doctor.first_name }}
+                {% if doctor.patronymic %}
+                    {{ doctor.patronymic }}
+                {% endif %}
+            </h1>
+
+            <p class="doctor-specialization">
+                {{ doctor.specialization }}
+            </p>
+
+            <p class="doctor-experience">
+                Стаж: {{ doctor.experience }}
+            </p>
+
+            <a href="#" class="btn-records">
+                Записаться на приём
+            </a>
+        </div>
+    </div>
+
+    {% if doctor.description %}
+    <div class="doctor-description">
+        <h2>О враче</h2>
+        <p>
+            {{ doctor.description|linebreaks }}
+        </p>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

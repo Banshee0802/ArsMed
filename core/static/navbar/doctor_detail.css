@@ -1,0 +1,95 @@
+.doctor-detail {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.doctor-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.doctor-photo {
+    width: 265px;
+    height: 400px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.doctor-photo.placeholder {
+    background-color: #efebec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #102a49;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.doctor-main-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.doctor-name {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #102a49;
+    margin-bottom: 10px;
+}
+
+.doctor-specialization {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.doctor-experience {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 50px;
+}
+
+.doctor-description h2 {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1.5rem;
+    color: #102a49;
+    margin-bottom: 15px;
+}
+
+.doctor-description p {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+.btn-records {
+    padding: 20px 50px;
+    border: none;
+    width: 200px;
+    background-color: #102a49;
+    color: #ffffff;
+    border-radius: 30px; 
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-records:hover {
+    background-color: #102a49;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
