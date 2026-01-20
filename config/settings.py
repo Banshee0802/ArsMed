@@ -180,3 +180,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'error',
 }
+
+TELEGRAM_BOT_TOKEN=os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID=os.getenv("TELEGRAM_CHAT_ID")

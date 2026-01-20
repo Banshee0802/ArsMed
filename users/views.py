@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
+from core.utils.telegram import send_telegram_message
 
 
 class CustomSignupView(SignupView):
@@ -170,6 +171,21 @@ def book_appointment(request, slot_id):
     slot.booked_by = request.user
     slot.status = 'booked'
     slot.save()
+
+    patient_name = " ".join([
+    request.user.last_name.capitalize(),
+    request.user.first_name.capitalize(),
+    request.user.patronymic.capitalize() if request.user.patronymic else ""
+])
+
+    send_telegram_message(
+        f"🩺 <b>Новая запись</b>\n"
+        f"Пациент: {patient_name}\n"
+        f"Врач: {slot.doctor}\n"
+        f"Дата: {slot.date}\n"
+        f"Время: {slot.start_time}"
+    )
+
     messages.success(request, f"Вы записаны к {slot.doctor} на {slot.date} в {slot.start_time}")
     return redirect('users:available_schedule')
 
