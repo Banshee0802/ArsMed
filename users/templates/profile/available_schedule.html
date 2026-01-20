@@ -12,6 +12,7 @@
        {% for doc_id, data in doctors.items %}
 <div class="doctor-block">
     <h3>{{ data.doctor.last_name }} {{ data.doctor.first_name }} {{ data.doctor.patronymic }}</h3>
+    <p>{{ data.doctor.specialization }}<p>
 
     {% for date, slots in data.dates.items %}
         <div class="date-block">

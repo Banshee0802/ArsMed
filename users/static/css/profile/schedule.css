@@ -16,10 +16,15 @@
 }
 
 .doctor-block h3 {
+    font-size: 22px;
+    color: #102a49;
+}
+
+.doctor-block p {
     display: inline-block;
     margin-bottom: 25px;
     font-size: 22px;
-    color: #102a49;
+    color: #102a497c;
 }
 
 .date-block {
