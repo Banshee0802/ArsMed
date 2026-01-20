@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from transliterate import translit
 from django.urls import reverse
 from datetime import date
 from users.models import CustomUser
@@ -94,8 +95,10 @@ class Doctor(models.Model):
         
     def save(self, *args, **kwargs):
         if not self.slug: 
-            base_slug = slugify(f"{self.last_name} {self.first_name} {self.patronymic or ''}")
-            slug = base_slug
+            name = f"{self.last_name} {self.first_name} {self.patronymic or ''}"
+            name_translit = translit(name, 'ru', reversed=True)
+            base_slug = slugify(name_translit)
+            slug = base_slug or 'doctor'
             num = 1
             while Doctor.objects.filter(slug=slug).exists():
                 slug = f"{base_slug}-{num}"
@@ -171,6 +174,7 @@ class Schedule(models.Model):
         ('confirmed', 'Подтверждено'),
         ('completed', 'Приём состоялся'),
         ('cancelled', 'Отменено'),
+        ('closed', 'Закрыто')
     ]
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='schedules', verbose_name='Доктор')
     date = models.DateField(verbose_name="Дата")
@@ -183,7 +187,7 @@ class Schedule(models.Model):
         blank=True,
         verbose_name='Медицинское заключение (PDF)'
     )
-    completed_at = models.DateTimeField(null=True, blank=True),
+    completed_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
     
     def __str__(self):
@@ -194,4 +198,3 @@ class Schedule(models.Model):
         ordering = ['date', 'start_time']
         verbose_name = "График"
         verbose_name_plural = "Графики"
-
