@@ -181,6 +181,7 @@ def book_appointment(request, slot_id):
     send_telegram_message(
         f"🩺 <b>Новая запись</b>\n"
         f"Пациент: {patient_name}\n"
+        f"Номер телефона: {request.user.phone}\n"
         f"Врач: {slot.doctor}\n"
         f"Дата: {slot.date}\n"
         f"Время: {slot.start_time}"
