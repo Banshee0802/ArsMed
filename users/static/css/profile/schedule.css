@@ -520,7 +520,7 @@
     color:#102a49; 
 }
 
-.confirm-btn {
+.confirm-btn-appointment {
     width: 100%;
     margin-top: 24px;
     padding: 12px;
@@ -533,7 +533,7 @@
     transition: background 0.2s ease;
 }
 
-.confirm-btn:hover {
+.confirm-btn-appointment:hover {
     background: #4910238a;
 }
 
