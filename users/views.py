@@ -138,17 +138,23 @@ class AvailableScheduleListView(LoginRequiredMixin, ListView):
 
      def get_queryset(self):
           today = timezone.localdate()
+          current_time = timezone.localtime().time()
+
           return Schedule.objects.filter(
-             date__gte=today
+             Q(date__gt=today) |
+             Q(date=today, start_time__gt=current_time),
+             status="available"
         ).order_by('date', 'start_time')
      
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
           today = timezone.localdate()
+          current_time = timezone.localtime().time()
 
           slots = Schedule.objects.filter(
+               Q(date__gt=today) |
+               Q(date=today, start_time__gt=current_time),
                status='available',
-               date__gte=today
                ).select_related("doctor").order_by('doctor__id', 'date', 'start_time')
 
           doctors = {}
