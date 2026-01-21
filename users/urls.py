@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (
                     ProfileView, ScheduleCreateView, 
                     ScheduleListView, AvailableScheduleListView, 
-                    book_appointment, ScheduleRequestsView,
+                    confirm_appointment_view, book_appointment, 
+                    ScheduleRequestsView,
                     confirm_request, cancel_request,
                     MyAppointmentsView, ScheduleUpdateView,
                     ScheduleDeleteView, AdminPatientsListView,
@@ -20,6 +21,7 @@ urlpatterns = [
     path('profile/appointments/', AvailableScheduleListView.as_view(), name="available_schedule"),
     path('profile/patients/', AdminPatientsListView.as_view(), name="admin_patients_list"),
     path('profile/patients/<int:pk>/', AdminPatientDetailView.as_view(), name="admin_patient_detail"),
+    path("appointments/confirm/<int:slot_id>/", confirm_appointment_view, name="confirm_appointment"),
     path('book/<int:slot_id>/', book_appointment, name='book_appointment'),
     path('profile/schedules/requests/', ScheduleRequestsView.as_view(), name="schedule_requests"),
     path('profile/schedules/requests/<int:pk>/confirm/', confirm_request, name="confirm_request"),

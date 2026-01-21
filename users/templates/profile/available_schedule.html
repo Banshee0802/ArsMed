@@ -19,7 +19,7 @@
             <h4>{{ date }}</h4>
             <div class="time-grid">
                 {% for slot in slots %}
-                    <a href="{% url 'users:book_appointment' slot.id %}" class="time-btn">
+                    <a href="{% url 'users:confirm_appointment' slot.id %}" class="time-btn">
                         {{ slot.start_time|time:"H:i" }}
                     </a>
                 {% endfor %}

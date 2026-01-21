@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from django.utils import timezone
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from allauth.account.views import SignupView
 from .forms import CustomSignupForm, ScheduleForm
 from django.contrib import messages
@@ -164,7 +164,13 @@ class AvailableScheduleListView(LoginRequiredMixin, ListView):
 
           context['doctors'] = doctors
           return context
-               
+
+
+def confirm_appointment_view(request, slot_id):
+     slot = get_object_or_404(Schedule, id=slot_id, status="available")
+
+     return render(request, "profile/confirm_appointment.html", {"slot": slot})
+
 
 def book_appointment(request, slot_id):
     slot = get_object_or_404(Schedule, id=slot_id, status='available')

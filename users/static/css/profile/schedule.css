@@ -484,3 +484,68 @@
 .toggle-doctor:hover {
     color: #007bff;          
 }
+
+/* Подтверждение записи  */
+
+.confirm-page {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.confirm-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 36px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.confirm-title {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 24px;
+    color: #2b2b2b;
+}
+
+.confirm-info p {
+    margin: 12px 0;
+    font-size: 15px;
+    color: #444;
+}
+
+.confirm-info span {
+    font-weight: 600;
+    color:#102a49; 
+}
+
+.confirm-btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #102a49;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.confirm-btn:hover {
+    background: #4910238a;
+}
+
+.confirm-back {
+    display: block;
+    margin-top: 18px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    text-decoration: none;
+}
+
+.confirm-back:hover {
+    color:#102a49;
+}

@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+
+{% block content %}  
+<div class="confirm-page">
+    <div class="confirm-card">
+        <h2 class="confirm-title">Подтверждение записи</h2>
+
+        <div class="confirm-info">
+            <p><span>Врач:</span> {{ slot.doctor }}</p>
+            <p><span>Специальность:</span> {{ slot.doctor.specialization }}</p>
+            <p><span>Дата:</span> {{ slot.date }}</p>
+            <p><span>Время:</span> {{ slot.start_time }}</p>
+        </div>
+
+        <form method="post" action="{% url 'users:book_appointment' slot.id %}">
+            {% csrf_token %}
+            <button type="submit" class="confirm-btn">
+                Подтвердить запись
+            </button>
+        </form>
+
+        <a href="{% url 'users:available_schedule' %}" class="confirm-back">
+            ← Вернуться к расписанию
+        </a>
+    </div>
+</div>
+{% endblock content %}
