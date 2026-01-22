@@ -17,16 +17,6 @@
     background: transparent;
 }
 
-.doctor-photo.placeholder {
-    background-color: #efebec;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #102a49;
-    font-weight: bold;
-    font-size: 2rem;
-}
-
 .doctor-main-info {
     flex: 1;
     min-width: 300px;

@@ -15,7 +15,7 @@
                 {% if doctor.photo %}
                     <img src="{{ doctor.photo.url }}" alt="{{ doctor }}" class="doctor-photo">
                 {% else %}
-                    <img src="{% static 'core/images/doctor_photo/doctor-placeholder.png' %}" alt="Фото врача">
+                    <img src="{% static 'core/images/doctor_photo/doctor-placeholder.png' %}" class="doctor-photo" alt="Фото врача">
                 {% endif %}
                 <div class="doctor-info">
                     <h3>{{ doctor.last_name }} {{ doctor.first_name }}{% if doctor.patronymic %} {{ doctor.patronymic }}{% endif %}</h3>
