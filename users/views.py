@@ -15,6 +15,31 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from core.utils.telegram import send_telegram_message
 
+# Helper для фильтрации врачей в списке
+def get_available_slots_queryset(doctor_slug=None):
+     today = timezone.localdate()
+     current_time = timezone.localtime().time()
+
+     qs = Schedule.objects.filter(
+          Q(date__gt=today) |
+          Q(date=today, start_time__gt=current_time),
+          status="available"
+     ).select_related("doctor").order_by("doctor_id", 'date', 'start_time') 
+
+     if doctor_slug:
+          qs = qs.filter(doctor__slug=doctor_slug)
+     
+     return qs
+
+# Функция для группировки врачей
+def group_slots_by_doctor_and_date(slots):
+    doctors = {}
+    for slot in slots:
+        doc_id = slot.doctor.id
+        doctors.setdefault(doc_id, {'doctor': slot.doctor, 'dates': {}})
+        doctors[doc_id]['dates'].setdefault(slot.date, []).append(slot)
+    return doctors
+
 
 class CustomSignupView(SignupView):
     form_class = CustomSignupForm
@@ -137,38 +162,15 @@ class AvailableScheduleListView(LoginRequiredMixin, ListView):
      context_object_name = 'schedules'
 
      def get_queryset(self):
-          today = timezone.localdate()
-          current_time = timezone.localtime().time()
-
-          return Schedule.objects.filter(
-             Q(date__gt=today) |
-             Q(date=today, start_time__gt=current_time),
-             status="available"
-        ).order_by('date', 'start_time')
+          doctor_slug = self.kwargs.get("doctor_slug")
+          return get_available_slots_queryset(doctor_slug)
      
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
-          today = timezone.localdate()
-          current_time = timezone.localtime().time()
 
-          slots = Schedule.objects.filter(
-               Q(date__gt=today) |
-               Q(date=today, start_time__gt=current_time),
-               status='available',
-               ).select_related("doctor").order_by('doctor__id', 'date', 'start_time')
+          slots = self.get_queryset()
 
-          doctors = {}
-          for slot in slots:
-               doc_id = slot.doctor.id
-               if doc_id not in doctors:
-                    doctors[doc_id] = {'doctor': slot.doctor, 'dates': {}}
-
-               date_obj = slot.date
-               if date_obj not in doctors[doc_id]['dates']:
-                    doctors[doc_id]['dates'][date_obj] = []
-               doctors[doc_id]['dates'][date_obj].append(slot)
-
-          context['doctors'] = doctors
+          context['doctors'] = group_slots_by_doctor_and_date(slots)
           return context
 
 
@@ -200,7 +202,7 @@ def book_appointment(request, slot_id):
     )
 
     messages.success(request, f"Вы записаны к {slot.doctor} на {slot.date} в {slot.start_time}")
-    return redirect('users:available_schedule')
+    return redirect('users:my_appointments')
 
 
 class ScheduleRequestsView(LoginRequiredMixin, AdminRequiredMixin, ListView):
