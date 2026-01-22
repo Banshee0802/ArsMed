@@ -38,7 +38,7 @@
                 Стаж: {{ doctor.experience }}
             </p>
 
-            <a href="#" class="btn-records">
+            <a href="{% url 'users:available_schedule_by_doctor' doctor.slug %}" class="btn-records">
                 Записаться на приём
             </a>
         </div>

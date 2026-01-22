@@ -19,6 +19,7 @@ urlpatterns = [
     path('profile/schedules/<int:pk>/edit/', ScheduleUpdateView.as_view(), name="admin_schedule_edit"),
     path('profile/schedules/<int:pk>/delete/', ScheduleDeleteView.as_view(), name="admin_schedule_delete"),
     path('profile/appointments/', AvailableScheduleListView.as_view(), name="available_schedule"),
+    path('appointments/doctor/<slug:doctor_slug>/', AvailableScheduleListView.as_view(), name='available_schedule_by_doctor'),
     path('profile/patients/', AdminPatientsListView.as_view(), name="admin_patients_list"),
     path('profile/patients/<int:pk>/', AdminPatientDetailView.as_view(), name="admin_patient_detail"),
     path("appointments/confirm/<int:slot_id>/", confirm_appointment_view, name="confirm_appointment"),

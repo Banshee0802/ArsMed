@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView
 from .models import HeroCard, SmallCard, SquareCard, Doctor, Services, Promotion, Contacts
+from users.views import get_available_slots_queryset
 
 
 class HomeView(TemplateView):
@@ -40,6 +41,23 @@ class DoctorDetailView(DetailView):
     context_object_name="doctor"
     slug_field = "slug"
     slug_url_kwarg = "slug"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Берём доступные слоты для текущего врача
+        doctor_slug = self.object.slug
+        slots = get_available_slots_queryset(doctor_slug)
+        
+        # Группируем слоты по дате
+        slots_by_date = {}
+        for slot in slots:
+            slots_by_date.setdefault(slot.date, []).append(slot)
+        
+        # Кладём в контекст
+        context['slots_by_date'] = slots_by_date
+        
+        return context
     
 
 class ServicesListView(ListView):
