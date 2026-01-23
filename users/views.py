@@ -4,9 +4,9 @@ from django.shortcuts import redirect, render
 from allauth.account.views import SignupView
 
 from core.signals import send_confirmation_email
-from .forms import CustomSignupForm, ScheduleForm
+from .forms import CustomSignupForm, ProfileForm, ScheduleForm
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from core.models import Schedule, Doctor
 from users.models import CustomUser
@@ -55,14 +55,19 @@ class CustomSignupView(SignupView):
         return response
     
 
-class ProfileView(LoginRequiredMixin, TemplateView):
+class ProfileView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    form_class = ProfileForm
     template_name = 'profile/profile.html'
+    success_url = reverse_lazy("users:profile")
 
-    def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context["user"] = self.request.user
-            return context
-        
+    def get_object(self, queryset=None):
+         return self.request.user
+
+    def form_valid(self, form):
+          messages.success(self.request, "Подписка обновлена")
+          return super().form_valid(form)
+          
 
 class AdminRequiredMixin(UserPassesTestMixin):
     def test_func(self):

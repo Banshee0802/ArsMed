@@ -21,6 +21,10 @@ class CustomSignupForm(SignupForm):
         required=True,
         label="Я даю согласие на обработку персональных данных"
     )
+    subscribe_promotions = forms.BooleanField(
+        required=True,
+        label="Подписаться на акции"
+    )
 
     def clean_phone(self):
         phone = self.cleaned_data['phone']
@@ -44,6 +48,7 @@ class CustomSignupForm(SignupForm):
         user.gender = self.cleaned_data['gender']
         user.birth_date = self.cleaned_data['birth_date']
         user.phone = self.cleaned_data['phone']
+        user.subscribe_promotion = self.cleaned_data.get("subscribe_promotion", False)
         user.save()
         return user
     
@@ -57,3 +62,9 @@ class ScheduleForm(forms.ModelForm):
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'}),
         }
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ["subscribe_promotions"]

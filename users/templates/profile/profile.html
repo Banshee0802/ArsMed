@@ -32,6 +32,16 @@
             <span>Email: {{ user.email }} </span>
         </div>
 
+        <form method="post" class="profile-field" style="margin-top: 20px;">
+            {% csrf_token %}
+            <label class="checkbox-label">
+                {{ form.subscribe_promotions }}
+                Подписка на акции
+            </label>
+            <button type="submit" class="save-btn">Сохранить</button>
+        </form>
+
+
         <p class="extra-text">
             <a href="{% url 'account_reset_password' %}" class="change-btn">Сменить пароль</a>
         </p>

@@ -3,7 +3,8 @@ from django.dispatch import receiver
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from .models import Schedule
+from .models import Schedule, Promotion
+from users.models import CustomUser
 
 
 @receiver(post_save, sender=Schedule)
@@ -40,5 +41,38 @@ def send_confirmation_email(appointment: Schedule):
         to=[user.email],
     )
 
+    email.attach_alternative(html_content, "text/html")
+    email.send()
+
+
+@receiver(post_save, sender=Promotion)
+def send_promotion_email(sender, instance, created, **kwargs):
+    if not created:
+        return
+    
+    subscribers = CustomUser.objects.filter(subscribe_promotions=True, is_active=True)
+    for user in subscribers:
+        send_promotion_email_to_user(user, instance)
+
+def send_promotion_email_to_user(user, promotion):
+    if not user.email:
+        return
+
+    context = {
+        "user": user,
+        "promotion": promotion,
+
+    }
+
+    subject = f"Новая акция от Ars Medica: {promotion.title}"
+    text_content = render_to_string("emails/promotion.txt", context)
+    html_content = render_to_string("emails/promotion.html", context)
+
+    email = EmailMultiAlternatives(
+        subject=subject,
+        body=text_content,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[user.email]
+    )
     email.attach_alternative(html_content, "text/html")
     email.send()

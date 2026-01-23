@@ -1,0 +1,5 @@
+Новая акция: {{ promotion.title }}
+Дата начала: {{ promotion.start_date }}
+Дата окончания: {{ promotion.end_date }}
+
+Не пропустите!

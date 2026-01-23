@@ -19,6 +19,7 @@ class CustomUser(AbstractUser):
     gender = models.CharField(max_length=6, choices=gender_choices, verbose_name="Пол")
     birth_date = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
     phone = models.CharField(max_length=15, blank=True, null=True, verbose_name="Номер телефона")
+    subscribe_promotions = models.BooleanField(default=False, verbose_name="Подписка на акции")
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}"

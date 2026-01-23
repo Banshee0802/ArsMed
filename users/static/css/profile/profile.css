@@ -47,6 +47,25 @@
     font-weight: 500;
 }
 
+.save-btn {
+    margin-left: 10px;
+    padding: 7px;
+    background-color: #102a49;
+    border-radius: 30px;
+    border-style: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.save-btn:hover {
+    background-color:  #efebec;
+    color:  #102a49;
+}
+
 /* Кнопка выхода */
 .profile-card .exit-btn {
     display: block;
