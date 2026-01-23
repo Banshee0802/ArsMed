@@ -1,0 +1,10 @@
+Здравствуйте, {{ user.first_name }}!
+
+Ваша запись подтверждена администратором.
+
+Врач: {{ appointment.doctor }}
+Дата: {{ appointment.date }}
+Время: {{ appointment.start_time }}
+
+Ждём вас!
+

@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.shortcuts import redirect, render
 from allauth.account.views import SignupView
+
+from core.signals import send_confirmation_email
 from .forms import CustomSignupForm, ScheduleForm
 from django.contrib import messages
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -216,8 +218,12 @@ class ScheduleRequestsView(LoginRequiredMixin, AdminRequiredMixin, ListView):
 
 def confirm_request(request, pk):
      slot = get_object_or_404(Schedule, id=pk)
-     slot.status = 'confirmed'
-     slot.save()
+     if slot.status != 'confirmed':
+          slot.status = "confirmed"
+          slot.save()
+
+          send_confirmation_email(slot)
+          
      messages.success(request, "Запись подтверждена")
      return redirect('users:schedule_requests')
 

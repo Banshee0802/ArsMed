@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f6f6;
+            padding: 20px;
+        }
+        .card-mail {
+            background: #ffffff;
+            max-width: 600px;
+            margin: auto;
+            padding: 24px;
+            border-radius: 8px;
+        }
+        .title-mail {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        .info-mail {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-mail">
+        <div class="title-mail">Ваша запись подтверждена 🩺</div>
+
+        <p>Здравствуйте, {{ user.first_name.capitalize }}!</p>
+
+        <p>
+            Администратор подтвердил вашу запись.
+        </p>
+
+        <div class="info-mail"><b>Врач:</b> {{ appointment.doctor }}</div>
+        <div class="info-mail"><b>Дата:</b> {{ appointment.date }}</div>
+        <div class="info-mail"><b>Время:</b> {{ appointment.start_time }}</div>
+
+        <p style="margin-top: 20px;">
+            Будем рады видеть вас!
+        </p>
+    </div>
+</body>
+</html>
