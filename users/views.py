@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.shortcuts import redirect, render
 from allauth.account.views import SignupView
-
+from django.views.decorators.http import require_POST
 from core.signals import send_confirmation_email
 from .forms import CustomSignupForm, ProfileForm, ScheduleForm
 from django.contrib import messages
@@ -324,3 +324,27 @@ class AdminPatientDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView)
           context['past_appointments'] = past
 
           return context
+     
+
+@require_POST
+@user_passes_test(lambda u: u.is_staff)
+def toggle_day_status(request):
+    doctor_id = request.POST.get('doctor')
+    date_str  = request.POST.get('date')
+    action    = request.POST.get('action')
+
+    if not doctor_id or not date_str or action not in ('close', 'open'):
+        messages.error(request, "Некорректные данные")
+        return redirect('users:admin_schedule_list')
+
+    new_status = 'closed' if action == 'close' else 'available'
+
+    updated = Schedule.objects.filter(
+        doctor_id=doctor_id,
+        date=date_str
+    ).exclude(status='booked').exclude(status='confirmed').update(status=new_status)
+
+    msg = f"Смена {date_str} {'закрыта' if action == 'close' else 'открыта'} ({updated} слотов)"
+    messages.success(request, msg) if updated else messages.info(request, "Нечего менять")
+
+    return redirect('users:admin_schedule_list')

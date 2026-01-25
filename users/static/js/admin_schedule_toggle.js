@@ -9,9 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     arrow.style.marginLeft = '8px';
     title.appendChild(arrow);
 
+    const isOpen = localStorage.getItem(`doctor-${id}-open`) === 'true';
+    if (isOpen) {
+      content.classList.remove('hidden');
+      arrow.textContent = ' ▲';
+    }
+
     title.addEventListener('click', () => {
       content.classList.toggle('hidden');
-      arrow.textContent = content.classList.contains('hidden') ? ' ▼' : ' ▲';
+      const isHidden = content.classList.contains('hidden');
+      arrow.textContent = isHidden ? ' ▼' : ' ▲';
+      localStorage.setItem(`doctor-${id}-open`, !isHidden);
     });
   });
 });

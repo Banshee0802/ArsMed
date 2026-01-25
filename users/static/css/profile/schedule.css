@@ -172,6 +172,100 @@
   display: none !important;
 }
 
+.day-toggle-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 20px 0 30px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.day-toggle-form select,
+.day-toggle-form input[type="date"] {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  min-width: 160px;
+}
+
+.day-toggle-form button {
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.day-toggle-form button[value="close"] {
+  background: #d32f2f;
+  color: white;
+}
+
+.day-toggle-form button[value="open"] {
+  background: #2e7d32;
+  color: white;
+}
+
+.day-toggle-form button:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Статус "закрыто" */
+.status.closed,
+.slot-card.status-closed {
+  background: #ffebee !important;
+  border-color: #ef9a9a !important;
+  color: #c62828;
+}
+
+.slot-card.status-closed .slot-info,
+.slot-card.status-closed .slot-time {
+  color: #757575;
+}
+
+.slot-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  justify-content: flex-end; 
+}
+
+.btn.small.edit {
+  background: #102a49;
+  color: white;
+}
+
+.btn.small.delete {
+  background: #cc587b;
+  color: white;
+}
+
+.btn.small {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn.small:hover {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+
 /* Форма для создания расписания */
 
 .admin-card {

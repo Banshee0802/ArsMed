@@ -39,6 +39,19 @@
     </form>
 
    <hr>
+    <form method="post" action="{% url 'users:admin_schedule_toggle_day' %}" class="day-toggle-form">
+        {% csrf_token %}
+        <select name="doctor" required>
+            <option value="">Врач</option>
+            {% for doc in doctors %}
+                <option value="{{ doc.id }}">{{ doc }}</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="date" required>
+        
+        <button type="submit" name="action" value="close" class="delete-btn" onclick="return confirm('Закрыть смену?')">Закрыть день</button>
+        <button type="submit" name="action" value="open"  class="edit-btn"   onclick="return confirm('Открыть смену?')">Открыть день</button>
+    </form>
 
   {% if schedules %}
     {% regroup schedules by doctor as by_doc %}
@@ -57,26 +70,31 @@
               <h3 class="date-title">{{ day.grouper }}</h3>
 
               <div class="slots-grid">
-                {% for s in day.list %}
-                  <div class="slot-card status-{{ s.status }}">
-                    <div class="slot-time">{{ s.start_time }} — {{ s.end_time }}</div>
+                    {% for s in day.list %}
+                        <div class="slot-card status-{{ s.status }}">
+                        <div class="slot-time">{{ s.start_time }} — {{ s.end_time }}</div>
 
-                    <div class="slot-info">
-                      {% if s.status == 'available' %}
-                        <span class="badge free">Свободно</span>
-                      {% else %}
-                        <span class="badge {{ s.status }}">
-                          {% if s.status == 'booked' %}Ожидает{% elif s.status == 'confirmed' %}Подтверждено{% else %}Завершён{% endif %}
-                        </span>
-                        {% if s.booked_by %}
-                          <div class="patient">
-                            {{ s.booked_by.last_name|capfirst }} {{ s.booked_by.first_name|capfirst }}
-                            <br>{{ s.booked_by.phone }}
-                          </div>
-                        {% endif %}
-                      {% endif %}
-                    </div>
+                        <div class="slot-info">
+                            {% if s.status == 'closed' %}
+                            <span class="badge closed">Закрыто</span>
 
+                            {% elif s.status == 'available' %}
+                            <span class="badge free">Свободно</span>
+
+                            {% else %}
+                            <span class="badge {{ s.status }}">
+                                {% if s.status == 'booked' %}Ожидает
+                                {% elif s.status == 'confirmed' %}Подтверждено
+                                {% else %}Завершён{% endif %}
+                            </span>
+                            {% if s.booked_by %}
+                                <div class="patient">
+                                {{ s.booked_by.last_name|capfirst }} {{ s.booked_by.first_name|capfirst }} {{ s.booked_by.patronymic|capfirst }}
+                                <br>{{ s.booked_by.phone }}
+                                </div>
+                            {% endif %}
+                            {% endif %}
+      </div>
                     <div class="slot-actions">
                       <a href="{% url 'users:admin_schedule_edit' s.id %}" class="btn small edit">✎</a>
                       <a href="{% url 'users:admin_schedule_delete' s.id %}" class="btn small delete">×</a>
