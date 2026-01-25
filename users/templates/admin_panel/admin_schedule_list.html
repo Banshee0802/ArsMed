@@ -38,67 +38,63 @@
         <button type="submit" class="filter-btn">Применить</button>
     </form>
 
-    <hr>
+   <hr>
 
-    {% if schedules %}
-    
-        {% regroup schedules by doctor as doctor_list %}
+  {% if schedules %}
+    {% regroup schedules by doctor as by_doc %}
 
-        {% for doctor_group in doctor_list %}
-            <h2 class="doctor-title toggle-doctor" data-doctor-id="{{ forloop.counter }}">{{ doctor_group.grouper }}</h2>
-            <div class="doctor-schedule hidden" id="doctor-{{ forloop.counter }}">
+    {% for doc in by_doc %}
+      <div class="doctor-card">
+        <h2 class="doctor-header toggle-doctor" data-doctor-id="{{ forloop.counter }}">
+          {{ doc.grouper }}
+        </h2>
 
-            {% regroup doctor_group.list by date as date_list %}
+        <div class="doctor-slots hidden" id="doctor-{{ forloop.counter }}">
+          {% regroup doc.list by date as by_date %}
 
-            {% for date_group in date_list %}
-                <div class="date-block">
-                    <h3>{{ date_group.grouper }}</h3>
+          {% for day in by_date %}
+            <div class="date-card">
+              <h3 class="date-title">{{ day.grouper }}</h3>
 
-                    <div class="time-list">
-                        {% for slot in date_group.list %}
-                            <div class="slot-row">
-                                <span class="time">{{ slot.start_time }} — {{ slot.end_time }}</span>
+              <div class="slots-grid">
+                {% for s in day.list %}
+                  <div class="slot-card status-{{ s.status }}">
+                    <div class="slot-time">{{ s.start_time }} — {{ s.end_time }}</div>
 
-                                {% if slot.status == 'available' %}
-                                    <span class="status free">Свободно</span>
-
-                                {% elif slot.status == 'booked' %}
-                                    <span class="status booked">
-                                       Ожидает подтверждения 
-                                       <p>({{ slot.booked_by.last_name.capitalize }} {{ slot.booked_by.first_name.capitalize }} {{ slot.booked_by.patronymic.capitalize }}: {{ slot.booked_by.phone }})</p>
-                                    </span>
-
-                                {% elif slot.status == 'confirmed' %}
-                                    <span class="status confirmed">
-                                        Подтверждено 
-                                        <p>({{ slot.booked_by.last_name.capitalize }} {{ slot.booked_by.first_name.capitalize }} {{ slot.booked_by.patronymic.capitalize }}: {{ slot.booked_by.phone }})</p>
-                                    </span>
-
-                                {% elif slot.status == 'completed' %}
-                                    <span class="status completed">
-                                       Приём завершен 
-                                       <p>({{ slot.booked_by.last_name.capitalize }} {{ slot.booked_by.first_name.capitalize }} {{ slot.booked_by.patronymic.capitalize }}: {{ slot.booked_by.phone }})</p>
-                                    </span>    
-
-                                {% endif %}
-                                <a href="{% url 'users:admin_schedule_edit' slot.id %}" class="edit-btn">
-                                    Редактировать</a>
-                                <a href="{% url 'users:admin_schedule_delete' slot.id %}" class="delete-btn">
-                                    Удалить</a>
-                            </div>
-                        {% endfor %}
+                    <div class="slot-info">
+                      {% if s.status == 'available' %}
+                        <span class="badge free">Свободно</span>
+                      {% else %}
+                        <span class="badge {{ s.status }}">
+                          {% if s.status == 'booked' %}Ожидает{% elif s.status == 'confirmed' %}Подтверждено{% else %}Завершён{% endif %}
+                        </span>
+                        {% if s.booked_by %}
+                          <div class="patient">
+                            {{ s.booked_by.last_name|capfirst }} {{ s.booked_by.first_name|capfirst }}
+                            <br>{{ s.booked_by.phone }}
+                          </div>
+                        {% endif %}
+                      {% endif %}
                     </div>
-                </div>
-            {% endfor %}
+
+                    <div class="slot-actions">
+                      <a href="{% url 'users:admin_schedule_edit' s.id %}" class="btn small edit">✎</a>
+                      <a href="{% url 'users:admin_schedule_delete' s.id %}" class="btn small delete">×</a>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
             </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
 
-    {% else %}
-        <p>Нет расписаний</p>
-    {% endif %}
+  {% else %}
+    <p class="empty">Нет расписаний</p>
+  {% endif %}
 </div>
-
-{% endblock content %}
+{% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/admin_schedule_toggle.js' %}"></script>

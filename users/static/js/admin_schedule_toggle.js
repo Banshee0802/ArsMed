@@ -1,20 +1,17 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const titles = document.querySelectorAll('.toggle-doctor');
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.toggle-doctor').forEach(title => {
+    const id = title.dataset.doctorId;
+    const content = document.getElementById(`doctor-${id}`);
+    if (!content) return;
 
-    titles.forEach(title => {
-        const doctorId = title.dataset.doctorId;
-        const block = document.getElementById(`doctor-${doctorId}`);
+    const arrow = document.createElement('span');
+    arrow.textContent = ' ▼';
+    arrow.style.marginLeft = '8px';
+    title.appendChild(arrow);
 
-        const arrow = document.createElement('span');
-        arrow.textContent = "▼";
-        arrow.style.marginLeft = "10px";
-        title.appendChild(arrow);
-
-        title.addEventListener('click', () => {
-            if (!block) return;
-            block.classList.toggle('hidden');
-
-            arrow.textContent = block.classList.contains('hidden') ? "▼" : "▲";
-        });
+    title.addEventListener('click', () => {
+      content.classList.toggle('hidden');
+      arrow.textContent = content.classList.contains('hidden') ? ' ▼' : ' ▲';
     });
+  });
 });
