@@ -60,13 +60,14 @@
 
 .btn-records {
     padding: 20px 50px;
+    margin-right: 10px;
     border: none;
     width: 200px;
     background-color: #102a49;
     color: #ffffff;
     border-radius: 30px; 
     font-family: 'Evolventa', Arial, sans-serif;
-    font-size: 0.9rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -79,6 +80,29 @@
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-review {
+    padding: 14px 40px;
+    background: #102a49;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Evolventa', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-review:hover {
+    background: #efebec;
+    color: #102a49;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
 }
 
 .doctor-photo img{
@@ -115,4 +139,172 @@
 
 .time-btn:hover {
     background: #d32f2f;
+}
+
+/* стили для отзывов в карточке врача */
+.reviews-section {
+    margin: 50px 0 30px;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 16px;
+}
+
+.reviews-section h2 {
+    font-family: 'Evolventa', sans-serif;
+    font-size: 1.6rem;
+    color: #102a49;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.rating-summary {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #102a49;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.review-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.review-header strong {
+    font-size: 1.1rem;
+    color: #102a49;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #f39c12;
+}
+
+.review-header small {
+    color: #777;
+    font-size: 0.95rem;
+}
+
+.review-item p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+    margin: 0;
+}
+
+/* стили для формы отзывов */
+.review-form-container {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.review-title {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #102a49;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-label {
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #102a49;
+}
+
+.rating-radio-group {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin: 12px 0;
+}
+
+.radio-label {
+    font-size: 1.3rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.radio-label input {
+    margin-right: 8px;
+}
+
+.review-form textarea {
+    padding: 14px 18px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 140px;
+}
+
+.submit-btn {
+    padding: 16px 60px;
+    background-color: #102a49;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Evolventa', Arial, sans-serif;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.submit-btn:hover {
+    background-color: #efebec;
+    color: #102a49;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #102a49;
+    font-family: 'Evolventa', Arial, sans-serif;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #ef6c00;
 }

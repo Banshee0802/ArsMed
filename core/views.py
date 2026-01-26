@@ -1,7 +1,13 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import HeroCard, SmallCard, SquareCard, Doctor, Services, Promotion, Contacts
+from core.forms import ReviewForm
+from .models import HeroCard, Review, Schedule, SmallCard, SquareCard, Doctor, Services, Promotion, Contacts
 from users.views import get_available_slots_queryset
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView
+from django.contrib import messages
+from django.db.models import Avg
 
 
 class HomeView(TemplateView):
@@ -53,8 +59,23 @@ class DoctorDetailView(DetailView):
         slots_by_date = {}
         for slot in slots:
             slots_by_date.setdefault(slot.date, []).append(slot)
-        
+
+        # Отзывы только от пациентов завершивших прием
+        completed_patients = Schedule.objects.filter(
+            doctor=self.object,
+            status='completed',
+            booked_by__isnull=False
+        ).values_list('booked_by_id', flat=True).distinct()
+
+        reviews = Review.objects.filter(
+            doctor=self.object,
+            patient__id__in=completed_patients
+        ).select_related('patient')
+
         # Кладём в контекст
+        context['reviews'] = reviews
+        context['avg_rating'] = reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+        context['review_count'] = reviews.count()
         context['slots_by_date'] = slots_by_date
         
         return context
@@ -90,3 +111,36 @@ class TermsOfUseView(TemplateView):
 
 class PrivacyPolicyView(TemplateView):
     template_name = "core/legal/privacy_policy.html"
+
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = 'navbar/review_form.html' 
+    success_url = reverse_lazy('core:doctor_detail')  
+
+    def dispatch(self, request, *args, **kwargs):
+        self.doctor = get_object_or_404(Doctor, slug=kwargs.get('slug'))
+        has_completed = Schedule.objects.filter(
+            doctor=self.doctor,
+            booked_by=request.user,
+            status='completed'
+        ).exists()
+        if not has_completed:
+            messages.error(request, "Вы можете оставить отзыв только после завершённого приёма")
+            return redirect('doctor_detail', slug=self.doctor.slug)
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.doctor = self.doctor
+        form.instance.patient = self.request.user
+        messages.success(self.request, "Отзыв успешно добавлен")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('doctor_detail', kwargs={'slug': self.doctor.slug})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['doctor'] = self.doctor
+        return context

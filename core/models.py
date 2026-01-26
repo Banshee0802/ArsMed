@@ -198,3 +198,19 @@ class Schedule(models.Model):
         ordering = ['date', 'start_time']
         verbose_name = "График"
         verbose_name_plural = "Графики"
+
+
+class Review(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='reviews', verbose_name="Доктор")
+    patient = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, verbose_name="Пациент")
+    rating = models.PositiveSmallIntegerField(default=5, choices=[(i, i) for i in range(1, 6)], verbose_name="Рейтинг")
+    comment = models.TextField(blank=True, max_length=1000, verbose_name="Отзыв")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создан")
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
+
+    def __str__(self):
+        return f"{self.patient} → {self.doctor} ({self.rating})"
