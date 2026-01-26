@@ -363,6 +363,8 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
+.patient-block { background: #f0f4ff; padding: 12px; border-radius: 8px; }
+
 /* Стили для заявок пациентов */
 
 .requests-container {

@@ -13,7 +13,56 @@
 
     <form method="post" enctype="multipart/form-data" class="admin-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        
+        <form method="post" enctype="multipart/form-data" class="admin-form">
+    {% csrf_token %}
+
+    <div class="form-group">
+        {{ form.doctor.label_tag }}
+        {{ form.doctor }}
+    </div>
+
+    <div class="form-group">
+        {{ form.date.label_tag }}
+        {{ form.date }}
+    </div>
+
+    <div class="form-group">
+        {{ form.start_time.label_tag }}
+        {{ form.start_time }}
+    </div>
+
+    <div class="form-group">
+        {{ form.end_time.label_tag }}
+        {{ form.end_time }}
+    </div>
+
+    <div class="form-group">
+        {{ form.status.label_tag }}
+        {{ form.status }}
+    </div>
+
+    {% if object.booked_by %}
+    <div class="form-group patient-block">
+        <label>Пациент:</label>
+        <p>
+            <strong>{{ object.booked_by.last_name|capfirst }} 
+                    {{ object.booked_by.first_name|capfirst }} 
+                    {{ object.booked_by.patronymic|capfirst|default:"" }}
+            </strong><br>
+            <strong>Дата рождения:</strong> {{ object.booked_by.birth_date }}<br>
+            <strong>Телефон:</strong> {{ object.booked_by.phone }}
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="form-group">
+        {{ form.medical_report.label_tag }}
+        {{ form.medical_report }}
+        {% if form.instance.medical_report %}
+            <small>Текущий файл: <a href="{{ form.instance.medical_report.url }}" target="_blank">Скачать</a></small>
+        {% endif %}
+    </div>
 
         {% if form.instance.medical_report %}
             <p> Текущий файл: <a href='{{ form.instance.medical_report.url }}' target='_blank'>Скачать</a></p>
