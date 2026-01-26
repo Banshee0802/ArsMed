@@ -363,7 +363,61 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-.patient-block { background: #f0f4ff; padding: 12px; border-radius: 8px; }
+.search-patient {
+  display: flex;
+  gap: 10px;
+  margin: 8px 0 12px;
+}
+
+#patient-query {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+#search-btn {
+  padding: 10px 20px;
+  background: #102a49;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#search-btn:hover {
+  background: #0d1f36;
+}
+
+.patient-results {
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0;
+  background: #fff;
+}
+
+.patient-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.patient-item:hover {
+  background: #f0f4ff;
+}
+
+.selected-patient {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f0f4ff;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #102a49;
+}
 
 /* Стили для заявок пациентов */
 

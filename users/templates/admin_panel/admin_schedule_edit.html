@@ -5,6 +5,10 @@
 <link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+<script src="{% static 'js/admin_schedule_toggle.js' %}" data-search-url="{% url 'users:search_patients' %}"></script>
+{% endblock %}
+
 {% block content %}
 
 <div class="admin-card">
@@ -13,9 +17,6 @@
 
     <form method="post" enctype="multipart/form-data" class="admin-form">
         {% csrf_token %}
-        
-        <form method="post" enctype="multipart/form-data" class="admin-form">
-    {% csrf_token %}
 
     <div class="form-group">
         {{ form.doctor.label_tag }}
@@ -42,19 +43,24 @@
         {{ form.status }}
     </div>
 
-    {% if object.booked_by %}
-    <div class="form-group patient-block">
+   <div class="form-group">
         <label>Пациент:</label>
-        <p>
-            <strong>{{ object.booked_by.last_name|capfirst }} 
-                    {{ object.booked_by.first_name|capfirst }} 
-                    {{ object.booked_by.patronymic|capfirst|default:"" }}
-            </strong><br>
-            <strong>Дата рождения:</strong> {{ object.booked_by.birth_date }}<br>
-            <strong>Телефон:</strong> {{ object.booked_by.phone }}
-        </p>
+        <div class="search-patient">
+            <input type="text" id="patient-query" placeholder="ФИО или телефон">
+            <button type="button" id="search-btn">Найти</button>
+        </div>
+        <div id="patient-results" class="patient-results"></div>
+        <input type="hidden" name="booked_by" id="selected-patient-id" value="{% if object.booked_by %}{{ object.booked_by.id }}{% endif %}">
+        <div id="selected-patient" class="selected-patient">
+            {% if object.booked_by %}
+                <strong>{{ object.booked_by.last_name|upper }} {{ object.booked_by.first_name|upper }} {{ object.booked_by.patronymic|upper|default:"" }}</strong><br>
+                Телефон: {{ object.booked_by.phone }}<br>
+                Дата рождения: {{ object.booked_by.birth_date|date:"d.m.Y" }}
+            {% else %}
+                <em>Пациент не назначен</em>
+            {% endif %}
+        </div>
     </div>
-    {% endif %}
 
     <div class="form-group">
         {{ form.medical_report.label_tag }}
@@ -64,14 +70,12 @@
         {% endif %}
     </div>
 
-        {% if form.instance.medical_report %}
-            <p> Текущий файл: <a href='{{ form.instance.medical_report.url }}' target='_blank'>Скачать</a></p>
-        {% endif %}
-
         <p>Загрузка заключения автоматически завершит приём</p>
 
         <button type="submit" class="submit-btn">Сохранить</button>
     </form>
+
+    
 
     <a href="{% url 'users:admin_schedule_list' %}" class="back-btn">Назад</a>
 

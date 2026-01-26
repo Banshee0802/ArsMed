@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 from core.signals import send_confirmation_email
 from .forms import CustomSignupForm, ProfileForm, ScheduleForm
 from django.contrib import messages
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from core.models import Schedule, Doctor
 from users.models import CustomUser
@@ -148,12 +148,24 @@ class ScheduleUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
      success_url = reverse_lazy('users:admin_schedule_list')
 
      def form_valid(self, form):
+         old_appointment = Schedule.objects.get(pk=self.object.pk)
+
          appointment = form.save(commit=False)
 
+         if appointment.status == 'available':
+            appointment.booked_by = None
+
          if appointment.medical_report and appointment.status != 'completed':
-              appointment.status = 'completed'
-              appointment.completed_at = timezone.now()
+               appointment.status = 'completed'
+               appointment.completed_at = timezone.now()
+
          appointment.save()
+
+         if appointment.status == 'confirmed':
+
+               if not old_appointment.booked_by or old_appointment.booked_by != appointment.booked_by:
+                    send_confirmation_email(appointment)
+
          return super().form_valid(form)
      
 
@@ -348,3 +360,29 @@ def toggle_day_status(request):
     messages.success(request, msg) if updated else messages.info(request, "Нечего менять")
 
     return redirect('users:admin_schedule_list')
+
+
+class SearchPatientsView(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def get(self, request):
+        q = request.GET.get('q', '').strip()
+        if len(q) < 2:
+            return JsonResponse({'results': []})
+
+        patients = CustomUser.objects.filter(role='patient').filter(
+            Q(last_name__icontains=q) |
+            Q(first_name__icontains=q) |
+            Q(patronymic__icontains=q) |
+            Q(phone__icontains=q)
+        )[:20]
+
+        results = [
+            {
+                'id': p.id,
+                'text': f"{p.last_name or ''} {p.first_name or ''} {p.patronymic or ''} | {p.phone or '-'} | {p.birth_date or '-'}"
+            }
+            for p in patients
+        ]
+        return JsonResponse({'results': results})

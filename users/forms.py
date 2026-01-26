@@ -56,13 +56,16 @@ class CustomSignupForm(SignupForm):
 class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['doctor', 'date', 'start_time', 'end_time', 'status', 'medical_report']
+        fields = ['doctor', 'date', 'start_time', 'end_time', 'status', 'medical_report', 'booked_by']
         widgets = {
             'date': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'}),
         }
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["booked_by"].required = False 
+        self.fields["booked_by"].widget = forms.HiddenInput()  
 
 class ProfileForm(forms.ModelForm):
     class Meta:
