@@ -151,6 +151,32 @@
 .slot-card.status-confirmed  { border-color: #c7ceea; background: #f0f4ff; }
 .slot-card.status-completed  { border-color: #d4d4d4; background: #f9f9f9; opacity: 0.9; }
 
+.status.booked { color:  #fdad78; font-weight: bold; }
+.status.confirmed { color: #50d8a6;  font-weight: bold; }
+.status.completed { color: #677fdd; font-weight: bold; }
+
+.edit-btn {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px;
+    max-width: 210px;
+    background-color: #102a49;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    color:  #efebec;
+}
+
+.edit-btn:hover {
+    background-color:  #efebec;
+    color: #000000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
 .badge { 
     padding: 4px 8px; 
     border-radius: 12px; 
@@ -382,7 +408,7 @@
   background: #102a49;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
   cursor: pointer;
   transition: 0.2s;
 }
