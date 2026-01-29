@@ -11,7 +11,7 @@ from users.models import CustomUser
 def appointment_confirmed_email(sender, instance, created, **kwargs):
     if created:
         return
-    
+
     old_status = Schedule.objects.get(pk=instance.pk).status
 
     if old_status != "confirmed" and instance.status == "confirmed":
@@ -22,7 +22,7 @@ def send_confirmation_email(appointment: Schedule):
     user = appointment.booked_by
     if not user or not user.email:
         return
-    
+
     context = {
         "user": user,
         "appointment": appointment,
@@ -49,10 +49,11 @@ def send_confirmation_email(appointment: Schedule):
 def send_promotion_email(sender, instance, created, **kwargs):
     if not created:
         return
-    
+
     subscribers = CustomUser.objects.filter(subscribe_promotions=True, is_active=True)
     for user in subscribers:
         send_promotion_email_to_user(user, instance)
+
 
 def send_promotion_email_to_user(user, promotion):
     if not user.email:
@@ -61,7 +62,6 @@ def send_promotion_email_to_user(user, promotion):
     context = {
         "user": user,
         "promotion": promotion,
-
     }
 
     subject = f"Новая акция от Ars Medica: {promotion.title}"
@@ -72,7 +72,7 @@ def send_promotion_email_to_user(user, promotion):
         subject=subject,
         body=text_content,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        to=[user.email]
+        to=[user.email],
     )
     email.attach_alternative(html_content, "text/html")
     email.send()
