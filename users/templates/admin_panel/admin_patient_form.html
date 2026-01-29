@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-card">
+    <h1 class="admin-title">Создание пациента</h1>
+
+    <form method="post" class="admin-form">
+        {% csrf_token %}
+        {{ patient_form.as_p }}
+  
+        <input type="hidden" name="schedule_pk" value="{{ request.GET.schedule_pk }}">
+        <button type="submit" class="submit-btn">Создать пациента</button>
+    </form>
+
+
+</div>
+{% endblock %}

@@ -41,15 +41,68 @@ class CustomSignupForm(SignupForm):
         return '+' + digits
 
     def save(self, request):
+        phone = self.cleaned_data['phone']
+
+        existing = CustomUser.objects.filter(phone=phone).first()
+
+        if existing:
+            # активация существующего пациента
+            existing.username = self.cleaned_data.get(
+                'username', existing.username
+            )
+            existing.email = self.cleaned_data.get(
+                'email', existing.email
+            )
+            existing.set_password(self.cleaned_data['password1'])
+            existing.is_active = True
+
+            existing.last_name = self.cleaned_data['last_name'].strip().lower()
+            existing.first_name = self.cleaned_data['first_name'].strip().lower()
+            existing.patronymic = self.cleaned_data['patronymic'].strip().lower()
+            existing.gender = self.cleaned_data['gender']
+            existing.birth_date = self.cleaned_data['birth_date']
+            existing.subscribe_promotions = self.cleaned_data.get(
+                "subscribe_promotions", False
+            )
+
+            existing.save()
+            return existing
+
+        # если пациента не было - обычная регистрация
         user = super().save(request)
-        user.last_name = self.cleaned_data['last_name'].lower().strip()
-        user.first_name = self.cleaned_data['first_name'].lower().strip()
-        user.patronymic = self.cleaned_data['patronymic'].lower().strip()
+        user.last_name = self.cleaned_data['last_name'].strip().lower()
+        user.first_name = self.cleaned_data['first_name'].strip().lower()
+        user.patronymic = self.cleaned_data['patronymic'].strip().lower()
         user.gender = self.cleaned_data['gender']
         user.birth_date = self.cleaned_data['birth_date']
-        user.phone = self.cleaned_data['phone']
-        user.subscribe_promotion = self.cleaned_data.get("subscribe_promotion", False)
+        user.phone = phone
+        user.subscribe_promotions = self.cleaned_data.get(
+            "subscribe_promotions", False
+        )
         user.save()
+        return user
+    
+
+class AdminPatientForm(forms.ModelForm):
+    phone = forms.CharField(
+        max_length=20,
+        widget=forms.TextInput(attrs={'placeholder': '+7 (XXX) XXX XX XX'}),
+        label="Номер телефона"
+    )
+    gender = forms.ChoiceField(choices=CustomUser.gender_choices, label="Пол")
+
+    class Meta:
+        model = CustomUser
+        fields = ['last_name', 'first_name', 'patronymic', 'gender', 'birth_date', 'phone']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        # Приведение ФИО к нижнему регистру
+        user.last_name = (user.last_name or '').lower().strip()
+        user.first_name = (user.first_name or '').lower().strip()
+        user.patronymic = (user.patronymic or '').lower().strip()
+        if commit:
+            user.save()
         return user
     
 
@@ -66,6 +119,7 @@ class ScheduleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["booked_by"].required = False 
         self.fields["booked_by"].widget = forms.HiddenInput()  
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:

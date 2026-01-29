@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
+import uuid
 from django.utils import timezone
 from django.shortcuts import redirect, render
 from allauth.account.views import SignupView
 from django.views.decorators.http import require_POST
 from core.signals import send_confirmation_email
-from .forms import CustomSignupForm, ProfileForm, ScheduleForm
+from .forms import AdminPatientForm, CustomSignupForm, ProfileForm, ScheduleForm
 from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -16,6 +17,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from core.utils.telegram import send_telegram_message
+
 
 # Helper для фильтрации врачей в списке
 def get_available_slots_queryset(doctor_slug=None):
@@ -33,6 +35,7 @@ def get_available_slots_queryset(doctor_slug=None):
      
      return qs
 
+
 # Функция для группировки врачей
 def group_slots_by_doctor_and_date(slots):
     doctors = {}
@@ -43,6 +46,7 @@ def group_slots_by_doctor_and_date(slots):
     return doctors
 
 
+# Кастомная регистрация пациента
 class CustomSignupView(SignupView):
     form_class = CustomSignupForm
 
@@ -55,6 +59,7 @@ class CustomSignupView(SignupView):
         return response
     
 
+# Вьюшка профиля пациента
 class ProfileView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     form_class = ProfileForm
@@ -67,18 +72,21 @@ class ProfileView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
           messages.success(self.request, "Подписка обновлена")
           return super().form_valid(form)
-          
 
+
+# Миксин для админ-прав
 class AdminRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_staff
     
 
+# Список расписаний врачей для админа
 class ScheduleListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
      model = Schedule
      template_name = 'admin_panel/admin_schedule_list.html'
      context_object_name = 'schedules'
 
+     # Все графики и сортировка
      def get_queryset(self):
           qs = Schedule.objects.select_related('doctor', 'booked_by').order_by(
                'doctor__last_name',
@@ -108,18 +116,21 @@ class ScheduleListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
           return context
      
 
+# Декоратор: только админ (для подсчета запросов)
 @user_passes_test(lambda u: u.is_staff)
 def new_requests_count_api(request):
      count = Schedule.objects.filter(status='booked').count()
      return JsonResponse({'count': count})
           
 
+# Создание расписания врачей
 class ScheduleCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
      model = Schedule
      form_class = ScheduleForm
      template_name = 'admin_panel/admin_schedule_form.html'
      success_url = reverse_lazy('users:admin_schedule_list')
 
+     # При валидной форме - разбиение слотов по 30 минут
      def form_valid(self, form):
          work_day = form.save(commit=False)
          start = datetime.combine(work_day.date, work_day.start_time)
@@ -141,6 +152,7 @@ class ScheduleCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
          return redirect(self.success_url) 
      
 
+# Редактирование слота врача + запись пациента
 class ScheduleUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
      model = Schedule
      form_class = ScheduleForm
@@ -168,22 +180,31 @@ class ScheduleUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
 
          return super().form_valid(form)
      
+     def get_context_data(self, **kwargs):
+          context = super().get_context_data(**kwargs)
+          context['patient_form'] = AdminPatientForm()
+          return context
+     
 
+# Удаление отдельного слота по времени
 class ScheduleDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
      model = Schedule
      template_name = 'admin_panel/admin_schedule_delete.html'
      success_url = reverse_lazy('users:admin_schedule_list')
 
 
+# Расписание врачей для авторизованного пациента
 class AvailableScheduleListView(LoginRequiredMixin, ListView):
      model = Schedule
      template_name = 'profile/available_schedule.html'
      context_object_name = 'schedules'
 
+     # Доступные слоты
      def get_queryset(self):
           doctor_slug = self.kwargs.get("doctor_slug")
           return get_available_slots_queryset(doctor_slug)
      
+     # Группировка по врачам
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
 
@@ -193,12 +214,14 @@ class AvailableScheduleListView(LoginRequiredMixin, ListView):
           return context
 
 
+# Подтверждение записи при выборе времени
 def confirm_appointment_view(request, slot_id):
      slot = get_object_or_404(Schedule, id=slot_id, status="available")
 
      return render(request, "profile/confirm_appointment.html", {"slot": slot})
 
 
+# Запись пациента на слот + уведомление для админа в тг 
 def book_appointment(request, slot_id):
     slot = get_object_or_404(Schedule, id=slot_id, status='available')
     slot.booked_by = request.user
@@ -224,6 +247,7 @@ def book_appointment(request, slot_id):
     return redirect('users:my_appointments')
 
 
+# Запросы на запись 
 class ScheduleRequestsView(LoginRequiredMixin, AdminRequiredMixin, ListView):
      model = Schedule
      template_name = 'admin_panel/schedule_requests.html'
@@ -233,6 +257,7 @@ class ScheduleRequestsView(LoginRequiredMixin, AdminRequiredMixin, ListView):
           return Schedule.objects.filter(status='booked').order_by('date', 'start_time')
      
 
+# Подтверждение записи админом + отправка email пациенту о подтверждении
 def confirm_request(request, pk):
      slot = get_object_or_404(Schedule, id=pk)
      if slot.status != 'confirmed':
@@ -245,6 +270,7 @@ def confirm_request(request, pk):
      return redirect('users:schedule_requests')
 
 
+# Отмена записи админом
 def cancel_request(request, pk):
      slot = get_object_or_404(Schedule, id=pk)
      slot.status = 'available'
@@ -254,12 +280,13 @@ def cancel_request(request, pk):
      return redirect('users:schedule_requests')
 
 
+# Записи пациента к врачам + завершенные записи
 class MyAppointmentsView(LoginRequiredMixin, ListView):
      model = Schedule
      template_name = 'profile/my_appointments.html'
      context_object_name = 'appointments'
 
-
+     # Будущие приёмы
      def get_queryset(self):
         today = timezone.localdate()
         return Schedule.objects.filter(
@@ -267,7 +294,7 @@ class MyAppointmentsView(LoginRequiredMixin, ListView):
             date__gte=today
         ).order_by('date', 'start_time')
 
-
+     # Завершенные приёмы
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
           
@@ -278,7 +305,7 @@ class MyAppointmentsView(LoginRequiredMixin, ListView):
  
           return context
      
-
+# Получение записи пациентов к врачам (для списка пациентов)
 def get_patient_appointments(user):
      today = timezone.now().date()
 
@@ -296,11 +323,13 @@ def get_patient_appointments(user):
      return upcoming, past
 
 
+# Список пациентов
 class AdminPatientsListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
      model = CustomUser
      template_name = 'admin_panel/patients_list.html'
      context_object_name = 'patients'
 
+     # Фильтр пациентов по поиску
      def get_queryset(self):
           queryset = CustomUser.objects.filter(role='patient')
 
@@ -314,19 +343,22 @@ class AdminPatientsListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
                     Q(phone__icontains=query)
                )
 
-          return queryset.order_by('last_name', 'first_name')
+          return queryset.order_by('last_name', 'first_name') # Сортировка
 
+     # Запрос поиска
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
           context['query'] = self.request.GET.get('q', '')
           return context
      
 
+# Детальная карточка пациента
 class AdminPatientDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView):
      model = CustomUser
      template_name = 'admin_panel/patient_detail.html'
      context_object_name = 'patient'
 
+     # Записи пациента к врачам
      def get_context_data(self, **kwargs):
           context = super().get_context_data(**kwargs)
 
@@ -338,6 +370,7 @@ class AdminPatientDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView)
           return context
      
 
+# Закрытие/открытие смены врача
 @require_POST
 @user_passes_test(lambda u: u.is_staff)
 def toggle_day_status(request):
@@ -362,6 +395,7 @@ def toggle_day_status(request):
     return redirect('users:admin_schedule_list')
 
 
+# Поиск пациента по базе при редактировании слота врача (для записи)
 class SearchPatientsView(UserPassesTestMixin, View):
     def test_func(self):
         return self.request.user.is_staff
@@ -386,3 +420,38 @@ class SearchPatientsView(UserPassesTestMixin, View):
             for p in patients
         ]
         return JsonResponse({'results': results})
+    
+
+# Создание пациента, если нет в базе
+class AdminPatientCreateView(LoginRequiredMixin, AdminRequiredMixin, View):
+     def get(self, request):
+        form = AdminPatientForm()
+        return render(
+            request,
+            'admin_panel/admin_patient_form.html',
+            {'patient_form': form}
+        )
+
+     def post(self, request):
+        form = AdminPatientForm(request.POST)
+
+        if not form.is_valid():
+            return render(
+                request,
+                'admin_panel/admin_patient_form.html',
+                {'patient_form': form}
+            )
+
+        user = form.save(commit=False)
+        user.role = 'patient'
+        user.is_active = False
+        user.username = f"guest_{user.phone or uuid.uuid4().hex[:8]}"
+        user.set_unusable_password()
+        user.save()
+
+        schedule_pk = self.request.POST.get('schedule_pk')
+        if schedule_pk:
+            return redirect('users:admin_schedule_edit', pk=schedule_pk)
+        return redirect('users:admin_patients_list')
+
+     

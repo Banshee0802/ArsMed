@@ -27,7 +27,7 @@ class CustomUser(AbstractUser):
     def clean(self):
         super().clean()
 
-        if self.role == 'patient':
+        if self.role == 'patient' and self.is_active:
             errors = {}
 
             if not self.birth_date:
