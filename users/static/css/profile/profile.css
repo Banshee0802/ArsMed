@@ -172,3 +172,85 @@
     vertical-align: top;
     margin-left: 5px;
 }
+
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+
+  /* Заголовок */
+.profile-title {
+    font-size: 1.5rem;
+    margin-top: 25px;
+    padding: 0 15px;
+}
+
+  /* Основная обёртка */
+.profile-wrapper {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+  /* Карточка профиля */
+.profile-card {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    padding: 20px;
+}
+
+  /* Поля профиля */
+.profile-field {
+    align-items: flex-start;
+    font-size: 0.95rem;
+}
+
+.profile-field i {
+    margin-top: 3px;
+}
+
+.profile-field h3 {
+    display: block;
+    font-size: 1rem;
+}
+
+  /* Форма подписки */
+.profile-field form,
+  form.profile-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.save-btn {
+    margin-left: 0;
+    width: 100%;
+    padding: 12px;
+}
+
+  /* Кнопки */
+.change-btn,
+.exit-btn,
+.schedule-btn,
+.admin-btn {
+    max-width: 100%;
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+  /* Блок расписания */
+.schedule-block {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    padding: 25px;
+    text-align: center;
+}
+
+  /* Отступы у ссылок */
+.schedule-btn,
+.admin-btn {
+    margin-top: 15px;
+}
+}

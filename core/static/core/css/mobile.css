@@ -1,792 +1,150 @@
-/* Адаптив для мобильных устройств */
+/* Мобильная адаптация */
 @media (max-width: 768px) {
-    /* Шапка */
-    .header-container {
-        margin-left: 20px;
-        margin-top: 10px;
-    }
-    
-    .header-image {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-    
-    .header-image img {
-        width: 300px;
-    }
-    
-    .top-info,
-    .top-info-address {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    
-    .cabinet-btn {
-        position: relative;
-        top: 0;
-        left: 0;
-        margin: 10px auto;
-        display: block;
-        width: 200px;
-    }
-    
-    /* Навбар */
-    .navbar {
-        margin-top: 20px;
-        margin-left: 20px;
-        width: calc(100% - 20px);
-    }
-    
-    .nav-container {
-        flex-direction: column;
-        padding: 10px;
-        height: auto;
-    }
-    
-    .nav-menu {
-        flex-direction: column;
-        gap: 15px;
-        margin-left: 0;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    
-    .nav-buttons {
-        flex-direction: column;
-        gap: 10px;
-        margin-right: 0;
-        width: 50%;
-    }
-    
-    .btn {
-        width: 100%;
-        padding: 12px 20px;
-    }
-    
-    /* Карточки */
-    .cards-container {
-        flex-direction: column;
-        margin-top: 40px;
-        margin-left: 20px;
-        width: calc(100% - 20px);
-        gap: 20px;
-    }
-    
-    .big-card {
-        width: 90%;
-        height: 300px;
-        text-align: center;
-    }
-    
-    .right-cards {
-        width: 90%;
-        text-align: center;
-    }
-    
-    .small-card {
-        width: 100%;
-        height: auto;
-        min-height: 180px;
-    }
-    
-    /* Квадратные карточки */
-    .square-cards-section {
-        margin-left: 20px;
-        width: calc(100% - 40px);
-        padding: 0 10px;
-    }
-    
-    .section-title {
-        font-size: 1.8rem;
-    }
-    
-    .square-cards-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    /* Футер */
-    .footer {
-        margin-left: 20px;
-        width: calc(100% - 20px);
-    }
-    
-    .footer-container {
-        grid-template-columns: 1fr;
-        padding: 30px 20px 20px;
-        gap: 25px;
-    }
-    
-    .footer-bottom-container {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .footer-bottom-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
 
-/* Адаптив для планшетов */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .header-container {
-        margin-left: 20px;
-        margin-top: 10px;
-    }
-    
-    .header-image {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-    
-    .header-image img {
-        width: 200px;
-    }
-    
-    .top-info,
-    .top-info-address {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    
-    .cabinet-btn {
-        position: relative;
-        top: 5px;
-        left: 0;
-        margin: 10px auto;
-        display: block;
-        width: 345px;
-    }
-    
-    /* Навбар */
-    .navbar {
-        margin-top: 20px;
-        margin-left: 20px;
-        width: calc(100% - 20px);
-    }
-    
-    .nav-container {
-        flex-direction: column;
-        padding: 10px;
-        height: auto;
-    }
-    
-    .nav-menu {
-        flex-direction: column;
-        gap: 15px;
-        margin-left: 0;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    
-    .nav-buttons {
-        flex-direction: column;
-        gap: 10px;
-        margin-right: 0;
-        width: 100%;
-    }
-    
-    .btn {
-        width: 40%;
-        margin-left: 30%;
-        padding: 12px 20px;
-    }
-    
-    /* Карточки */
-    .cards-container {
-        margin-left: 30px;
-        width: calc(100% - 30px);
-        gap: 25px;
-    }
-    
-    .big-card {
-        height: 590px;
-    }
-    
-    .small-card {
-        height: 250px;
-        width: 90%;
-    }
-    
-    /* Квадратные карточки */
-    .square-cards-section {
-        margin-left: 30px;
-        width: calc(100% - 70px);
-    }
-    
-    .square-cards-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
-        max-width: 90%;
-    }
-    
-    /* Футер */
-    .footer {
-        margin-left: 30px;
-        width: calc(100% - 30px);
-    }
-    
-    .footer-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 35px;
-        padding: 40px 30px 25px;
-    }
-}
+  body {
+    overflow-x: hidden;
+  }
 
-/* Дополнительные корректировки для средних планшетов */
-@media (max-width: 900px) and (min-width: 769px) {
-    .header-container {
-        margin-left: 20px;
-        margin-top: 10px;
-    }
-    
-    .header-image {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-    
-    .header-image img {
-        width: 200px;
-    }
-    
-    .top-info {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 10px;
-    }
+  /* Шапка */
+  .header-container {
+    position: static;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    text-align: center;
+  }
 
-    .top-info-address {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    
-    .cabinet-btn {
-        position: relative;
-        top: 0;
-        left: 0;
-        margin: 10px auto;
-        display: block;
-        width: 40%;
-    }
+  .header-image,
+  .top-info,
+  .top-info-address,
+  .profile-btn {
+    position: static;
+    margin: 0;
+    width: 100%;
+  }
 
-    .cabinet-btn-btn {
-        position: relative;
-        width: 50%;
-        margin-right: 500%;
-    }
-    
-    /* Навбар */
-    .navbar {
-        margin-top: 20px;
-        margin-left: 20px;
-        width: calc(100% - 20px);
-    }
-    
-    .nav-container {
-        flex-direction: column;
-        padding: 10px;
-        height: auto;
-    }
-    
-    .nav-menu {
-        flex-direction: column;
-        gap: 15px;
-        margin-left: 0;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    
-    .nav-buttons {
-        flex-direction: column;
-        gap: 10px;
-        margin-right: 30%;
-        width: 50%;
-    }
-    
-    .btn {
-        width: 100%;
-        padding: 12px 20px;
-    }
+  .header-image img {
+    width: 180px;
+  }
 
-    .cards-container {
-        margin-left: 30px;
-        width: calc(100% - 30px);
-        gap: 25px;
-    }
-    
-    .big-card {
-        height: 690px;
-    }
-    .small-card {
-        height: 300px;
-        width: 90%;
-    }
-}
-    
+  .phone-number,
+  .info-address {
+    font-size: 0.9rem;
+    white-space: normal;
+  }
 
-/* Для узких планшетов */
-@media (max-width: 820px) and (min-width: 769px) {
-    .header-container {
-        margin-left: 20px;
-        margin-top: 10px;
-    }
-    
-    .header-image {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-    
-    .header-image img {
-        width: 300px;
-    }
-    
-    .top-info {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 10px;
-    }
+  .profile-btn {
+    height: 44px;
+    width: 200px;
+    font-size: 0.9rem;
+  }
 
-    .top-info-address {
-        position: relative;
-        top: 0;
-        left: 0;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    
-    .cabinet-btn {
-        position: relative;
-        top: 0;
-        margin-right: 20%;
-        margin: 40px auto;
-        display: block;
-        width: 40%;
-    }
-    
-    /* Навбар */
-    .navbar {
-        margin-top: 20px;
-        margin-left: 20px;
-        width: calc(100% - 20px);
-    }
-    
-    .nav-container {
-        flex-direction: column;
-        padding: 10px;
-        height: auto;
-    }
-    
-    .nav-menu {
-        flex-direction: column;
-        gap: 15px;
-        margin-left: 0;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    
-    .nav-buttons {
-        flex-direction: column;
-        gap: 10px;
-        margin-right: 30%;
-        width: 50%;
-    }
-    
-    .btn {
-        width: 100%;
-        padding: 12px 20px;
-    }
+  /* Навбар */
+  .navbar {
+    margin: 0;
+    width: 100%;
+    border-radius: 0;
+  }
 
-    .cards-container {
-        margin-left: 30px;
-        width: calc(100% - 30px);
-        gap: 25px;
-    }
-    
-    .big-card {
-        height: 690px;
-    }
-    .small-card {
-        height: 300px;
-        width: 90%;
-    }
-}
+  .nav-container {
+    padding: 10px 15px;
+    height: auto;
+  }
 
-/* Адаптив для больших экранов (1440px - 1920px) */
-@media (min-width: 1441px) and (max-width: 1920px) {
-    .header-container {
-        margin-left: 80px;
-    }
-    
-    .header-image img {
-        width: 270px;
-        height: 110px;
-        margin-left: 30px;
-    }
+  .burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
 
-    .navbar {
-        margin-left: 80px;
-        width: calc(100% - 80px);
-    }
-    
-    .top-info {
-        left: 25%;
-    }
-    
-    .top-info-address {
-        left: 55%;
-    }
-    
-    .cabinet-btn {
-        left: 75%;
-    }
-    
-    .nav-menu {
-        gap: 80px;
-        margin-left: 5%;
-    }
+  .burger span {
+    width: 25px;
+    height: 3px;
+    background: #102a49;
+    border-radius: 2px;
+  }
 
-    .nav-buttons {
-        margin-right: 50px;
-        width: 30%;
-    }
-    
-    .cards-container {
-        margin-left: 80px;
-        width: calc(100% - 80px);
-    }
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 15px 0 0;
+  }
 
-    .big-card {
-        height: 495px;
-    }
-    
-    .square-cards-section {
-        margin-left: 80px;
-        width: calc(100% - 80px);
-    }
-    
-    .square-cards-container {
-        max-width: 1200px;
-        gap: 40px;
-    }
-    
-    .footer {
-        margin-left: 80px;
-        width: calc(100% - 80px);
-    }
-}
+  .nav-menu.active {
+    display: flex;
+  }
 
-/* Адаптив для стандартных десктопов (1366px - 1440px) */
-@media (min-width: 1367px) and (max-width: 1440px) {
-    .header-container {
-        margin-left: 60px;
-    }
-    
-    .header-image img {
-        width: 235px;
-        margin-left: 10px;
-    }
+  .nav-buttons {
+    width: 100%;
+    margin-left: 70px;
+  }
 
-    .navbar {
-        margin-left: 60px;
-        width: calc(100% - 60px);
-    }
-    
-    .top-info {
-        left: 23%;
-    }
-    
-    .top-info-address {
-        margin-right: 30%;
-    }
-    
-    .cabinet-btn {
-        left: 81%;
-    }
-    
-    .nav-menu {
-        gap: 85px;
-        margin-left: 7%;
-    }
-    
-    .nav-buttons {
-        margin-right: 25px;
-    }
-    
-    .btn {
-        padding: 6px 45px;
-    }
-    
-    .cards-container {
-        margin-left: 60px;
-        width: calc(100% - 60px);
-    }
-    
-    .square-cards-section {
-        margin-left: 60px;
-        width: calc(100% - 60px);
-    }
-    
-    .square-cards-container {
-        max-width: 1100px;
-        gap: 35px;
-    }
-    
-    .footer {
-        margin-left: 60px;
-        width: calc(100% - 60px);
-    }
-}
+  .btn {
+    width: 200px;
+    padding: 10px;
+  }
 
-/* Адаптив для ноутбуков (1280px - 1366px) */
-@media (min-width: 1280px) and (max-width: 1366px) {
-    .header-container {
-        margin-left: 50px;
-    }
-    
-    .navbar {
-        margin-left: 50px;
-        width: calc(100% - 50px);
-    }
-    
-    .top-info {
-        left: 27%;
-    }
-    
-    .top-info-address {
-        left: 57%;
-    }
-    
-    .cabinet-btn {
-        left: 81%;
-        padding: 8px 20px;
-    }
-    
-    .nav-menu {
-        gap: 70px;
-        margin-left: 5%;
-    }
-    
-    .nav-buttons {
-        margin-right: 20px;
-    }
-    
-    .btn {
-        padding: 5px 35px;
-        font-size: 0.85rem;
-    }
-    
-    .cards-container {
-        margin-left: 50px;
-        width: calc(100% - 50px);
-    }
-    
-    .big-card {
-        height: 490px;
-    }
-    
-    .small-card {
-        height: 200px;
-        width: 90%;
-    }
-    
-    .square-cards-section {
-        margin-left: 50px;
-        width: calc(100% - 50px);
-    }
-    
-    .square-cards-container {
-        max-width: 1000px;
-        gap: 30px;
-    }
-    
-    .doctors-title-section,
-    .doctors-cards-section {
-        margin-left: 50px;
-        width: calc(100% - 50px);
-    }
-    
-    .doctors-cards-container {
-        max-width: 1050px;
-    }
-    
-    .footer {
-        margin-left: 50px;
-        width: calc(100% - 50px);
-    }
-}
+  /* Карточки */
+  .cards-container {
+    flex-direction: column;
+    margin: 30px 0 0;
+    width: 100%;
+    padding: 0 15px;
+  }
 
-/* Адаптив для небольших ноутбуков (1024px - 1279px) */
-@media (min-width: 1024px) and (max-width: 1279px) {
-    .header-container {
-        margin-left: 40px;
-    }
-    
-    .navbar {
-        margin-left: 40px;
-        width: calc(100% - 40px);
-        margin-top: 70px;
-    }
-    
-    .header-image {
-        top: -70px;
-        left: 40px;
-    }
-    
-    .header-image img {
-        width: 245px;
-    }
-    
-    .top-info {
-        left: 28%;
-        top: -40px;
-    }
-    
-    .top-info-address {
-        left: 54%;
-        top: -40px;
-    }
-    
-    .cabinet-btn {
-        left: 81%;
-        top: -50px;
-        padding: 8px 18px;
-        font-size: 0.9rem;
-    }
-    
-    .nav-container {
-        padding: 0 30px;
-    }
-    
-    .nav-menu {
-        gap: 50px;
-        margin-left: 3%;
-    }
-    
-    .nav-link {
-        font-size: 0.9rem;
-    }
-    
-    .nav-buttons {
-        margin-right: 15px;
-        gap: 15px;
-    }
-    
-    .btn {
-        padding: 5px 30px;
-        font-size: 0.8rem;
-        min-width: 110px;
-    }
-    
-    .cards-container {
-        margin-left: 40px;
-        width: calc(100% - 40px);
-        margin-top: 60px;
-    }
-    
-    .big-card {
-        height: 470px;
-        width: 55%;
-    }
-    
-    .right-cards {
-        width: 45%;
-    }
-    
-    .small-card {
-        height: 190px;
-        width: 95%;
-    }
-    
-    .square-cards-section {
-        margin-left: 40px;
-        width: calc(100% - 40px);
-    }
-    
-    .section-title {
-        font-size: 2rem;
-    }
-    
-    .square-cards-container {
-        max-width: 900px;
-        gap: 25px;
-    }
-    
-    .square-card {
-        padding: 25px 20px;
-    }
-    
-    .square-card h3 {
-        font-size: 1.2rem;
-    }
+  .big-card,
+  .right-cards,
+  .small-card {
+    width: 100%;
+    height: auto;
+  }
 
-    
-    .title-frame h1 {
-        font-size: 2.2rem;
-    }
-    
-    .footer {
-        margin-left: 40px;
-        width: calc(100% - 40px);
-    }
-    
-    .footer-container {
-        padding: 40px 30px 25px;
-        gap: 30px;
-    }
-}
+  .big-card {
+    min-height: 280px;
+  }
 
-/* Дополнительные корректировки для узких экранов 1024px */
-@media (min-width: 1024px) and (max-width: 1100px) {
-    .top-info {
-        left: 30%;
-    }
-    
-    .top-info-address {
-        left: 55%;
-        font-size: small;
-    }
-    
-    .cabinet-btn {
-        left: 79%;
-    }
-    
-    .nav-menu {
-        gap: 40px;
-    }
-    
-    .nav-buttons {
-        gap: 10px;
-    }
-    
-    .btn {
-        padding: 8px 25px;
-        width: 130px;
-    }
+  /* Квадратные карточки */
+  .section-title {
+    margin-right: 45px;
+  }
+
+  .section-description {
+    margin-right: 45px;
+  }
+
+  .square-cards-container {
+    grid-template-columns: 1fr;
+    margin-right: 45px;
+  }
+
+  /* Футер */
+  .footer {
+    margin: 40px 0 0;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    padding: 30px 20px;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  /* Симптом-чекер */
+  .ai-fab-container {
+    right: 15px;
+    bottom: 15px;
+  }
 }

@@ -428,24 +428,6 @@ html, body {
   z-index: 1;
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 1024px) {
-    .square-cards-container {
-        grid-template-columns: repeat(2, 1fr); 
-    }
-}
-
-@media (max-width: 768px) {
-    .square-cards-container {
-        grid-template-columns: 1fr; 
-    }
-    
-    .square-cards-section {
-        margin-left: 20px;
-        width: calc(100% - 20px);
-    }
-}
-
 /* Оверлеи для каждой карточки */
 .square-card:nth-child(1)::before {
     background: linear-gradient(135deg, #102a49cc 0%, #205293cc 100%), center/cover;
@@ -619,30 +601,6 @@ html, body {
 
 .footer-bottom-links a:hover {
     color: #4facfe;
-}
-
-@media (max-width: 768px) {
-    .footer {
-        margin-left: 20px;
-        width: calc(100% - 20px);
-    }
-    
-    .footer-container {
-        grid-template-columns: 1fr;
-        padding: 40px 20px 20px;
-        gap: 30px;
-    }
-    
-    .footer-bottom-container {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .footer-bottom-links {
-        flex-direction: column;
-        gap: 10px;
-    }
 }
 
 
