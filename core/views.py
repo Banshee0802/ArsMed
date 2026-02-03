@@ -1,6 +1,7 @@
+import re
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, View
 from core.forms import ReviewForm
 from .models import (
     HeroCard,
@@ -12,12 +13,85 @@ from .models import (
     Services,
     Promotion,
     Contacts,
+    SymptomAnalysis,
 )
 from users.views import get_available_slots_queryset
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
 from django.contrib import messages
 from django.db.models import Avg
+import logging
+from django.conf import settings
+from gigachat import GigaChat
+from django.shortcuts import render
+
+
+logger = logging.getLogger(__name__)
+# ИИ-бот для диагностики симптомов
+class SymptomCheckerView(View):
+    template_name = "core/symptom_checker.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+    
+    def post(self, request):
+        user_text = request.POST.get("symptoms", "").strip()
+        ai_response = ""
+        error_message = None
+
+        if not user_text:
+            error_message = "Пожалуйста, опишите Ваши симптомы"
+        else:
+            try:
+                with GigaChat(
+                    credentials=settings.GIGACHAT_CREDENTIALS,
+                    verify_ssl_certs=True,
+                    ca_bundle_file=settings.GIGACHAT_CERTS,
+                    scope="GIGACHAT_API_PERS"
+                ) as giga:
+                    
+                    response = giga.chat({
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": (
+                                    "Ты — медицинский ИИ-ассистент клиники. "
+                                    "Твоя задача: проанализировать жалобы пользователя, "
+                                    "назвать возможные причины (не ставя окончательный диагноз) "
+                                    "и подсказать, к какому врачу (терапевт, ЛОР, хирург и т.д.) записаться. "
+                                    "Отвечай вежливо и кратко. В конце обязательно пиши: "
+                                    "'Внимание! Это предварительная информация, необходим очный осмотр врача'"
+                                    "После этого дисклеймера ОБЯЗАТЕЛЬНО добавь техническую строку строго в формате: "
+                                    "ВРАЧ_ДЛЯ_БАЗЫ: [Название специалиста]"
+                                )
+                            }, 
+                            {"role": "user", "content": user_text}
+                        ]
+                    })
+                    ai_response = response.choices[0].message.content
+
+                   
+                    match = re.search(r"ВРАЧ_ДЛЯ_БАЗЫ:\s*\[?(.*?)\]?$", ai_response)
+                    doctor_name = match.group(1).strip() if match else "Терапевт"
+
+                    # Удаление технической строки
+                    clean_response = re.sub(r"ВРАЧ_ДЛЯ_БАЗЫ:.*", "", ai_response).strip()
+
+
+                    SymptomAnalysis.objects.create(
+                        user_query=user_text,
+                        ai_result=clean_response,
+                        recommended_doctor=doctor_name
+                    )
+            except Exception as e:
+                logger.error(f"GigaChat Error: {e}")
+                error_message = "Произошла ошибка при связи с ИИ. Попробуйте позже"
+        
+        return render(request, self.template_name, {
+            "symptoms": user_text,
+            "response": clean_response,
+            "error": error_message
+        })
 
 
 class HomeView(TemplateView):
@@ -155,3 +229,6 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["doctor"] = self.doctor
         return context
+    
+
+

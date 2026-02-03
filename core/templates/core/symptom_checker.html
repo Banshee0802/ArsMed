@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block extra_js %}
+    <script src="{% static 'js/symptom_checker.js' %}"></script>
+{% endblock %}
+    
+
+{% block content %}
+<div class="symptom-checker">
+    <div class="checker-header">
+        <h2>🏥 ИИ-диагностика Ars Medica</h2>
+    </div>
+    
+    <form method="post" id="symptomForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Опишите жалобы (минимум 10 символов):</label>
+            <textarea name="symptoms" rows="4" id="userInput">{{ symptoms }}</textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Запустить анализ</button>
+        <p style="font-size: 0.8rem; color: #6c757d; margin-top: 10px; line-height: 1.2;">
+            Нажимая кнопку, вы соглашаетесь на обработку данных нейросетью GigaChat в целях предварительного анализа. 
+            ИИ-ассистент носит справочный характер и может ошибаться.
+        </p>
+
+    </form>
+
+    {% if error %}
+        <div style="color: #d32f2f; margin-top: 15px;">{{ error }}</div>
+    {% endif %}
+
+    {% if response %}
+        <div class="ai-card" id="aiCard">
+            <h4 style="color: #007bff;">Результат анализа:</h4>
+            <!-- Печать текста -->
+            <div id="typewriter" class="typing-text"></div>
+            <p class="disclaimer">⚠️ Внимание! Это предварительная информация, необходим очный осмотр врача.</p>
+        </div>
+
+        <script>
+            // Эффект печати текста
+            const text = `{{ response|escapejs }}`;
+            const target = document.getElementById('typewriter');
+            let i = 0;
+
+            function typeWriter() {
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 15); // Скорость печати
+                }
+            }
+            // Запуск печати
+            typeWriter();
+        </script>
+    {% endif %}
+</div>
+
+<script>
+    // Индикатор загрузки на кнопке
+    document.getElementById('symptomForm').onsubmit = function() {
+        const btn = document.getElementById('submitBtn');
+        btn.innerHTML = "⌛ ИИ анализирует, подождите...";
+        btn.style.opacity = "0.7";
+        btn.disabled = true;
+    };
+</script>
+{% endblock %}
+

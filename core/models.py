@@ -214,3 +214,18 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.patient} → {self.doctor} ({self.rating})"
+    
+
+class SymptomAnalysis(models.Model):
+    user_query = models.TextField(verbose_name="Жалобы пациента")
+    ai_result = models.TextField(verbose_name="Анализ ИИ")
+    recommended_doctor = models.CharField(max_length=100, blank=True, verbose_name="Рекомендованный врач")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время запроса") 
+
+    class Meta:
+        verbose_name = "Анализ симптомов"
+        verbose_name_plural = "История анализов ИИ"
+        ordering = ["-created_at"]
+
+        def __str__(self):
+            return f"Запрос от {self.created_at.strftime("%d.%m.%Y %H:%M")}"

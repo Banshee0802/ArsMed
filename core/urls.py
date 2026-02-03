@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     HomeView, ReviewCreateView, SquareCardDetailView, DoctorsListView, DoctorDetailView,
     ServicesListView, PromotionView, ContactsView,
-    TermsOfUseView, PrivacyPolicyView,
+    TermsOfUseView, PrivacyPolicyView, SymptomCheckerView
 )
 
 urlpatterns = [
@@ -16,4 +16,5 @@ urlpatterns = [
     path('contacts/', ContactsView.as_view(), name='contacts'),
     path('terms-of-use/', TermsOfUseView.as_view(), name='terms_of_use'),
     path('privacy-policy', PrivacyPolicyView.as_view(), name='privacy_policy'),
+    path("check-symptoms/", SymptomCheckerView.as_view(), name="symptom_checker"),
 ]

@@ -685,3 +685,147 @@ html, body {
     from { transform: translateX(150%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
+
+ /* Симптом-чекер */
+    .symptom-checker {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 25px;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .checker-header {
+        border-bottom: 2px solid #f0f7ff;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        color: #2c3e50;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #546e7a;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e0e6ed;
+        border-radius: 10px;
+        resize: none;
+        transition: border-color 0.3s;
+    }
+
+    textarea:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
+    .submit-btn {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        margin-top: 15px;
+        transition: 0.3s;
+    }
+
+    .submit-btn:hover { background: #0056b3; }
+
+    /* Окно ответа ИИ */
+    .ai-card {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f8fbff;
+        border-left: 5px solid #007bff;
+        border-radius: 8px;
+    }
+
+    .typing-text {
+        line-height: 1.6;
+        color: #34495e;
+        min-height: 50px;
+    }
+
+    .disclaimer {
+        font-size: 0.85rem;
+        color: #95a5a6;
+        margin-top: 15px;
+        font-style: italic;
+    }
+
+/* Контейнер кнопки */
+.ai-fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    text-decoration: none;
+}
+
+/* Сама кнопка */
+.ai-fab-button {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    padding: 0 15px;
+}
+
+/* Иконка бота */
+.ai-fab-icon {
+    font-size: 28px;
+    transition: transform 0.4s;
+}
+
+/* Текст (изначально скрыт по ширине) */
+.ai-fab-text {
+    max-width: 0;
+    opacity: 0;
+    white-space: nowrap;
+    transition: all 0.4s ease;
+    font-weight: 600;
+    margin-left: 0;
+}
+
+/* Эффект при наведении */
+.ai-fab-container:hover .ai-fab-button {
+    min-width: 190px;
+    background: linear-gradient(135deg, #0056b3, #007bff);
+}
+
+.ai-fab-container:hover .ai-fab-text {
+    max-width: 150px;
+    opacity: 1;
+    margin-left: 10px;
+}
+
+.ai-fab-container:hover .ai-fab-icon {
+    transform: rotate(20deg) scale(1.1);
+}
+
+/* Легкая анимация "пульсации", чтобы привлечь внимание */
+@keyframes fab-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.ai-fab-container {
+    animation: fab-pulse 3s infinite;
+}

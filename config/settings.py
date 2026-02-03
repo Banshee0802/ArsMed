@@ -19,6 +19,23 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+GIGACHAT_CERTS = os.path.join(BASE_DIR, 'certs', 'russian_trusted_root_ca.cer')
+GIGACHAT_TIMEOUT = 30  # секунд
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'gigachat': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -183,3 +200,5 @@ MESSAGE_TAGS = {
 
 TELEGRAM_BOT_TOKEN=os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID=os.getenv("TELEGRAM_CHAT_ID")
+
+GIGACHAT_CREDENTIALS=os.getenv("GIGACHAT_KEY")
